@@ -1,0 +1,47 @@
+{
+  "name": "fabricos-support",
+  "displayName": "FabricOS Support",
+  "description": "FabricOS CLI Support",
+  "version": "0.0.1",
+  "preview": false,
+  "engines": {
+    "vscode": "^1.86.0"
+  },
+  "author": "Doc911",
+	"license": "SEE LICENSE IN LICENSE.txt",
+  "icon": "brocade.png",
+  "categories": [
+    "Snippets",
+    "Other"
+  ],
+  "keywords": [
+    "FabricOS",
+    "fos",
+    "brocade",
+		"PowerShell"
+	],
+  "galleryBanner": {
+		"color": "#ecd5ac",
+		"theme": "light"
+	},
+  "homepage": "https://github.com/DocCLF/FabricOS-Support",
+  "repository": {
+		"type": "git",
+		"url": "https://github.com/DocCLF/FabricOS-Support.git"
+	},
+  "bugs": {
+		"url": "https://github.com/DocCLF/FabricOS-Support/issues"
+	},
+  "contributes": {
+    "snippets": [
+      {
+        "language": "",
+        "path": "./snippets/snippets.code-snippets"
+      },
+      {
+        "language": "powershell",
+        "path": "./snippets/snippets.code-snippets"
+      }
+    ]
+  }
+}

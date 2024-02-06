@@ -1,0 +1,677 @@
+	{
+		//////////////////////////////
+		//Alias area
+		//////////////////////////////
+		"Creates a zone alias": {
+			"prefix": ["alicreate"],
+			"body": [
+				"alicreate \"${1:AliasName}\" , \"${2:WWPN}\""
+			],
+			"description": "Create a new Alias"
+		}
+		"Add a member to a zone alias": {
+				"prefix": ["aliadd"],
+				"body": [
+					"aliadd \"${1:AliasName}\" , \"${2:WWPN}\""
+				],
+				"description": " Add one or more members to an existing Alias.\nThe alias member list cannot contain another zone alias."
+			}
+		//
+		//////////////////////////////	
+		//Zoning area
+		//////////////////////////////	
+		"Creates a default Zone": {
+				"prefix": ["zonecreate"],
+				"body": [
+					"zonecreate \"${1:ZoneName}\" , \"${2:Member};${3:Member}\""
+				],
+				"description": "Create a new basic zone"
+		}
+		"Creates a default Peer Zone": {
+				"prefix": ["peerzone","pzone"],
+				"body": [
+					"zonecreate --peerzone \"${1:ZoneName}\" -principal \"${2:StorageMember}\";\"${3:StorageMember}\" -members \"${4:HostMember}\";\"${5:HostMember}\""
+				],
+				"description": "Create a new Peer Zone"
+		}
+		"Adds a Member to the default Zone": {
+			"prefix": ["zoneadd"],
+			"body": [
+				"zoneadd \"${1:ZoneName}\" , \"${2:Member};${3:Member}\""
+			],
+			"description": "Add one or more members to an existing default zone"
+		}
+		"Adds a Member AND Principal to the Peer Zone": {
+			"prefix": ["peezoneadd"],
+			"body": [
+				"zoneadd --peerzone \"${1:ZoneName}\" -principal \"${2:StorageMember}\" -members \"${3:HostMember}\""
+			],
+			"description": "Add one or more Member AND Principal to an existing Peer Zone"
+		}		
+		"Adds a Member OR Principal to the Peer Zone": {
+				"prefix": ["peerzoneadd"],
+				"body": [
+					"zoneadd --peerzone \"${1:ZoneName}\" ${2|-principal,-members|} \"${3:Member}\""
+				],
+				"description": "Add one or more Member OR Principal to an existing Peer Zone"
+		}
+		"Removes a member from a default zone": {
+			"prefix": ["zoneremove"],
+			"body": [
+				"zoneremove \"${1:ZoneName}\" , \"${2:Member};${3:Member}\""
+			],
+			"description": "Remove one or more members from an existing zone"
+		}
+		"Removes a member AND principal (Peer Zone) from a zone": {
+			"prefix": ["peerzoneremove"],
+			"body": [
+				"zoneremove --peerzone \"${1:ZoneName}\" -principal \"${2:StorageMember}\" -members \"${3:HostMember}\""
+			],
+			"description": "Remove one or more Member AND Principal members from a Peer Zone"
+		}	
+		"Removes a member OR principal (Peer Zone) from a zone": {
+			"prefix": ["peerzoneremove"],
+			"body": [
+				"zoneremove --peerzone \"${1:ZoneName}\" ${2|-principal,-members|} \"${3:Alias}\""
+			],
+			"description": "Remove one or more Member OR Principal members from a Peer Zone"
+		}
+		"Show only Peer Zones": {
+			"prefix": ["peerzoneshow"],
+			"body": [
+				"zoneshow --peerzone -all"
+			],
+			"description": "List all Peer Zones in the zone database"
+		}	
+		"Show all Zones": {
+			"prefix": ["zoneshow"],
+			"body": [
+				"zoneshow"
+			],
+			"description": "List all Zones in the zone database"
+		}	
+		"Renames a zone object": {
+			"prefix": ["zoneObjectRename"],
+			"body": [
+				"zoneObjectRename \"${1:oldName}\" , \"${2:newName}"
+			],
+			"description": "Rename a zone object. You can use this command for all zone object types, including cfg, zone, and alias."
+		}
+		"Copies a zone object": {
+			"prefix": ["zoneObjectCopy"],
+			"body": [
+				"zoneObjectCopy \"${1:oldName}\" , \"${2:newName}"
+			],
+			"description": "Make a copy of an existing zone object and give it a new name. The resulting object is of the same type as the original object. You can use this command for all zone object types, including cfg, zone, and alias."
+		}	
+		//
+		//////////////////////////////	
+		//Configuration area
+		//////////////////////////////	
+		"Create a zone configuration": {
+			"prefix": ["cfgcreate"],
+			"body": [
+				"cfgcreate \"${1:cfgName}\" \"${2:Member}\""
+			],
+			"description": "Use this command to create a new zone configuration"
+		}
+		"Adds a member to a zone configuration": {
+			"prefix": ["cfgadd"],
+			"body": [
+				"cfgadd \"${1:cfgName}\" \"${2:Member}\""
+			],
+			"description": "Use this command to add one or more members to an existing zone configuration"
+		}		
+		"Removes a member from a zone configuration": {
+			"prefix": ["cfgremove"],
+			"body": [
+				"cfgremove \"${1:cfgName}\" \"${2:Member}\""
+			],
+			"description": "Use this command to remove one or more members from an existing zone configuration. If all members are removed, the zone configuration is deleted."
+		}	
+		"Downloads configuration data to the system": {
+			"prefix": ["configdownload"],
+			"body": [
+				"configdownload -all -${1|scp,sftp,ftp|} ${2:host(ip),${3:user},${4:config.txt},${5:password}}"
+			],
+			"description": "Use this command to download all system configuration data for the chassis and all logical switches (requires chassis permissions)"
+		}	
+		"Upload all system configuration data to an external Server": {
+			"prefix": ["configupload"],
+			"body": [
+				"configupload -all -${1|scp,sftp,ftp|} ${2:host(ip),${3:user},${4:config.txt},${5:password}}"
+			],
+			"description": "Use this command to upload all system configuration data to an external Server"
+		}
+		"View the configuration in the effective zone database": {
+			"prefix": ["zoneaddpeerprin"],
+			"body": [
+				"cfgactvshow"
+			],
+			"description": "Viewing the Configuration in the Effective Zone Database"
+		}	
+		//
+		//////////////////////////////	
+		//setup area
+		//////////////////////////////	
+		"To configure the DNS domain name, DNS server address": {
+			"prefix": ["dnsconfig"],
+			"body": [
+				"dnsconfig --add -domain ${1:example.com} -serverip1 ${2:8.8.8.8} -serverip2 ${3:8.8.4.4}"
+			],
+			"description": "Use this command to set the domain name service parameters"
+		}
+		"To configure the DNS domain name, DNS server address": {
+			"prefix": ["dnsconfig"],
+			"body": [
+				"dnsconfig --add -domain ${1:example.com} -serverip1 ${2:8.8.8.8} -serverip2 ${3:8.8.4.4}"
+			],
+			"description": "Use this command to set the domain name service parameters"
+		}
+		"Sets or displays the idle timeout value for a shell or SSH login session": {
+			"prefix": ["timeout"],
+			"body": [
+				"timeout --session ${1:time}"
+			],
+			"description": "Use this command without an operand to display the current timeout value (in minutes) after which idle logins are automatically terminated"
+		}
+		"The following example sets the NTP server to a specified address": {
+			"prefix": ["tsclockserver"],
+			"body": [
+				"tsclockserver ${1:NTP_ip}"
+			],
+			"description": "The tsClockServer command accepts multiple NTP server addresses in IPv4, IPv6, or DNS name formats"
+		}
+		"Set the switch or chassis name": {
+			"prefix": ["switchname,chassisName"],
+			"body": [
+				"${1|switchname,chassisName|} ${2:name}"
+			],
+			"description": "Use this command to set the switch or chassis name"
+		}
+		"Password police overview": {
+			"prefix": ["passwdcfg"],
+			"body": [
+				"passwdcfg --showall"
+			],
+			"description": "Display the current password configuration parameters"
+		}
+		"Manages the password policies": {
+			"prefix": ["passwdcfg"],
+			"body": [
+				"passwdcfg --set -uppercase ${1:ABC...} -lowercase ${2:abc...} -digits ${3:123...} -minlength ${4:PW_length} -history ${5:0-24} -maxpasswordage ${6:Indays} -warning ${7:0-999}"
+			],
+			"description": "Use this command to manage password policies."
+		}
+		"Add a user account.": {
+			"prefix": ["adduser,userconfig"],
+			"body": [
+				"userconfig --add ${1:username} -l ${2:LF_ID_list(1-128)} -r ${3:role} -c ${4:chassis_role} -p ${5:password}"
+			],
+			"description": "Use this command to add user accounts on a switch"
+		}
+		"Delete a user account.": {
+			"prefix": ["deleteuser,userconfig"],
+			"body": [
+				"userconfig --delete ${1:username}"
+			],
+			"description": "Use this command to delete user accounts on a switch"
+		}
+		"Sets the Ethernet IP addresses": {
+			"prefix": ["ipaddrset"],
+			"body": [
+				"ipaddrset -ipv4 -add -ethip ${1:ipaddress} -ethmask ${2:mask_ip} -gwyip ${3:gateway_ip} -dhcp ${4|on,off|}"
+			],
+			"description": "Use this command to configure the IP addresses on a switch"
+		}
+		"Sets the Ethernet IP addresses for a logical switch": {
+			"prefix": ["ipaddrset"],
+			"body": [
+				"ipaddrset -ls ${1:FID} --add ${2:ipaddress/mask}"
+			],
+			"description": "Use the following procedure to set up IP addresses for a logical switch"
+		}
+		"Sets the Ethernet IP addresses for a logical switch": {
+			"prefix": ["license"],
+			"body": [
+				"license --show"
+			],
+			"description": " Displays license keys\n Old Command: licenseshow"
+		}
+		//
+		//////////////////////////////	
+		//Virtual Fabrics area
+		//////////////////////////////	
+		"Displays Fabric OS features": {
+			"prefix": ["fosconfig"],
+			"body": [
+				"fosconfig --show"
+			],
+			"description": "Use this command Displays Fabric OS features"
+		}	
+		"Enable or disable a Virtual Fabrics Mode": {
+			"prefix": ["fosconfig"],
+			"body": [
+				"fosconfig --${1|enable,disable|} vf"
+			],
+			"description": "Use this command to enable or disable a Virtual Fabrics Mode"
+		}
+		"Creates or delete a logical switch instance": {
+			"prefix": ["lscfg"],
+			"body": [
+				"lscfg --${1|create,delete|} ${2:new_FID}"
+			],
+			"description": "Use this command to create or delete a logical switch instance"
+		}
+		"Assign ports to a logical switch": {
+			"prefix": ["lscfg"],
+			"body": [
+				"lscfg --config ${1:FID} -port ${2:port/portrange}"
+			],
+			"description": "Use this command to assign ports to a logical switch"
+		}
+		"Displays the partition configuration on a switch or chassis": {
+			"prefix": ["lscfg"],
+			"body": [
+				"lscfg --show -n"
+			],
+			"description": "Displays the partition configuration on a switch or chassis, -n is optional "
+		}
+		"Jump to a logical switch context by a specified FID": {
+			"prefix": ["setcontext"],
+			"body": [
+				"setcontext ${1:FID_or_swName}"
+			],
+			"description": "Use this command to jump into a logical switch context by a specified FID"
+		}
+		//
+		//////////////////////////////	
+		//firmware area
+		//////////////////////////////		
+		"Downloads firmware from a remote host, a local directory, or a USB device": {
+			"prefix": ["firmwaredownload"],
+			"body": [
+				"firmwaredownload -p ${1|scp,sftp,ftp,http|} ${2:host(ip),${3:user},${4:path},${5:password}}"
+			],
+			"description": "Use this command to download switch firmware from an FTP or SSH server or local NFS directory to nonvolatile storage"
+		}
+		"Commits switch firmware": {
+			"prefix": ["firmwarecommit"],
+			"body": [
+				"firmwarecommit"
+			],
+			"description": "Commits switch firmware"
+		}
+		"Restores the former active firmware image": {
+			"prefix": ["firmwarerestore"],
+			"body": [
+				"firmwarerestore"
+			],
+			"description": "Use this command to restore the former active Fabric OS firmware image"
+		}
+		"Displays the status of a firmware download.": {
+			"prefix": ["firmwaredownloadstatus"],
+			"body": [
+				"firmwaredownloadstatus"
+			],
+			"description": "Use this command to display an event log that records the progress and status of events during a firmware download"
+		}
+		"Firmware version and download history.": {
+			"prefix": ["firmwareshow"],
+			"body": [
+				"firmwareshow --history"
+			],
+			"description": "Use this command to display the firmware versions and the firmware download history."
+		}
+		//
+		//////////////////////////////	
+		//support area
+		//////////////////////////////
+		"Saves support information to an server": {
+			"prefix": ["supportsave"],
+			"body": [
+				"supportsave -h ${1:host_ip} -d ${2:remote_dir} -l ${3|scp,sftp,ftp|} -u ${4:user_name} -p ${5:password}"
+			],
+			"description": "To save RASLOG, TRACE, supportShow, and other support information to an server"
+		}
+		"Saves Support information to USB": {
+			"prefix": ["supportsaveUSB"],
+			"body": [
+				"supportsave -U -d ${1:remote_dir}"
+			],
+			"description": "To collect support information on a switch and save it to an attached USB device"
+		}
+		//
+		//////////////////////////////	
+		//port area
+		//////////////////////////////
+		"Configures a port to support long distance links": {
+			"prefix": ["portcfglongdistance"],
+			"body": [
+				"portcfglongdistance ${1:port} ${2|L0,LE,LD,LS|} 1 -distance ${3:distance} -framesize ${4:frame_size}"
+			],
+			"description": "Use this command to allocate frame buffer credits to a port or to configure a specified long distance link. The port can only be used as an E_Port."
+		}
+		"Configures normal distance E_Port buffer allocation": {
+			"prefix": ["portcfgeportcredits"],
+			"body": [
+				"portcfgeportcredits --${1|enable,disable,show|} ${2:port} ${3:credits_in_use_with_enable}"
+			],
+			"description": "Use this command to change the default credit allocation for a normal distance E_Port or EX_Port by allocating the specified number of credits to the port."
+		}
+		"Displays trunking information": {
+			"prefix": ["trunkshow"],
+			"body": [
+				"trunkshow -${1|perf,slotport,swname|}"
+			],
+			"description": " Use this command to display trunking information of E_Ports, F_Ports, and EX_Ports\n (optional)\n -perf for bandwidth, throughput, and percentage of link utilization\n -swname bandwidth, throughput, and percentage of link utilization\n -slotport neighbor port detail in slot/port format"
+		}
+		"Displays interswitch link  information": {
+			"prefix": ["islshow"],
+			"body": [
+				"islshow -${1:slotport}"
+			],
+			"description": " Use this command to display the current connections and status of the interswitch link (ISL) for each port on a switch.\n (optional)\n -slotport display neighbor details"
+		}
+		"Configures F_Port buffer allocation": {
+			"prefix": ["portCfgFportBuffers"],
+			"body": [
+				"portCfgFportBuffers --${1|enable,disable|} ${2:port} ${3:credits_in_use_with_enable}"
+			],
+			"description": "Use this command to change the default buffer allocation for an F_Port and to allocate a specified number of buffers to the port."
+		}
+		"To calculate the buffers required per port": {
+			"prefix": ["portbuffercalc"],
+			"body": [
+				"portbuffercalc ${1:port} -distance ${2:in_km} -speed ${3|4,8,16,32|} -framesize ${4:framesize_in_bytes}"
+			],
+			"description": "Use this command to calculate how many buffers are required for a given distance, speed, and framesize"
+		}
+		"Enables or disables credit recovery on a port": {
+			"prefix": ["portcfgcreditrecovery"],
+			"body": [
+				"portcfgcreditrecovery --${1|enable,disable,help|} ${2:port}"
+			],
+			"description": "Use this command to enable or disable credit recovery on a port"
+		}
+		"Portinformation": {
+			"prefix": ["portcfgshow"],
+			"body": [
+				"portcfgshow ${1:port}"
+			],
+			"description": "Use this command to display the current configuration of a port."
+		}
+		"Trunking Port cfg": {
+			"prefix": ["portcfgtrunkport"],
+			"body": [
+				"portcfgtrunkport ${1:port} ${2|0,1|}" 
+			],
+			"description": " Specify 1 to enable trunking on the specified port.\n Specify 0 to disable trunking on the port.\n This operand is required."
+		}
+		"Switchtrunk cfg": {
+			"prefix": ["switchcfgtrunk"],
+			"body": [
+				"switchcfgtrunk ${2|0,1|}" 
+			],
+			"description": " Enables or disables trunking on all the ports of a switch\n Specify 1 to enable trunking on all ports. Specify 0 to disable trunking on all ports.\n This operand is required."
+		}
+		//
+		//////////////////////////////	
+		//ntk comands area
+		//////////////////////////////
+		"Use the following procedure to view the CLI command log": {
+			"prefix": ["clihistory"],
+			"body": [
+				"clihistory"
+			],
+			"description": "Entering clihistory with no keywords displays the command line history for the currently logged-in user only."
+		}
+		"IP-Addr. information": {
+			"prefix": ["ipaddrshow"],
+			"body": [
+				"ipaddrshow"
+			],
+			"description": "Use this command to display the IP addresses configured in the system."
+		}
+		"TCP Timeout level": {
+			"prefix": ["timeoutlevel"],
+			"body": [
+				"ethif --${1|show,set|} -tcptimeoutlevel"
+			],
+			"description": " Display and set TCP timeout level\n To set the timeoutlevel use ethif --set -tcptimeoutlevel 2\n Timeout level are:\n 1: 3 seconds\n 2: 7 seconds\n 3: 15 seconds\n 4: 31 seconds\n 5: 63 seconds"
+		}
+		"Use the following procedure to set the device date and time": {
+			"prefix": ["date"],
+			"body": [
+				"date \"${1:MMDDhhmmYY}\""
+			],
+			"description": " Use the following procedure to set the device date and time.\n Example: date \"0821083524\"\n Result: AUG 21 08:35 UTC 2024\n MM is the month; valid values are 01 through 12.\n DD is the date; valid values are 01 through 31.\n hh is the hour; valid values are 00 through 23.\n mm is minutes; valid values are 00 through 59.\n YY is the year; valid values are 00 through 37 and 70 through 99 (year values from 70 through 99 are interpreted as 1970 through 1999; year values from 00 through 37 are interpreted as 2000 through 2037)."
+		}
+		"Assigns port names": {
+			"prefix": ["portname"],
+			"body": [
+				"portname ${1:Port} -n \"${2:portname}\""
+			],
+			"description": "Use this command to assign a port name to a specified port."
+		}
+		"Set all ports on a switch to the same speed": {
+			"prefix": ["switchcfgspeed"],
+			"body": [
+				"switchcfgspeed ${1:speed}"
+			],
+			"description": " Example: switchcfgspeed 32 (All Ports are set at a fixed speed of 32Gb/s)\n 0 -> Autosensing mode. The port automatically configures for the highest speed.\n 1 -> The port is set at a fixed speed of 1Gb/s (not supported on Brocade Gen 6 platforms).\n 2 -> The port is set at a fixed speed of 2Gb/s (not supported on Brocade Gen 6 platforms).\n 4 -> The port is set at a fixed speed of 4Gb/s.\n 8 -> The port is set at a fixed speed of 8Gb/s.\n 16 -> The port is set at a fixed speed of 16Gb/s (not supported on 8G platforms).\n 32 -> The port is set at a fixed speed of 32Gb/s (not supported on 8G platforms)."
+		}
+		"PortCFGspeed": {
+			"prefix": ["portcfgSpeed"],
+			"body": [
+				"portcfgSpeed ${1:port} ${2:speed}"
+			],
+			"description": " Setting Port Speed. Example: portcfgSpeed 0 16\n 0 -> Autosensing mode (hardware). The port automatically configures for maximum speed.\n 8 -> The port is set at a fixed speed of 8G.\n 16 -> The port is set at a fixed speed of 16G (not supported on 8G platforms)\n 32 -> The port is set at a fixed speed of 32G (not supported on 8G and 16G platforms)\n 64 -> The port is set at a fixed speed of 64G. (supported only on the port blades and pizza boxes of the Brocade Gen 7 platform)"
+		}	
+		"Enabling In-Flight Compression": {
+			"prefix": ["compression"],
+			"body": [
+				"portdisable ${1:port}",
+				"portcfgcompress --${2|enable,disable|} ${1:port}",
+				"portenable ${1:port}"
+			],
+			"description": "Enable in-flight compression to provide better bandwidth use on the ISLs, especially over long distance"
+		}
+		"Executes any Fabric OS command on a specified or all the logical switches": {
+			"prefix": ["fosexec"],
+			"body": [
+				"# Example: fosexec --fid 10 -cmd \"switchshow\""
+				"# Example: fosexec --fid all -cmd \"switchshow\"\n"
+				"fosexec --fid ${1:FID_or_all} -cmd \"${2:FOS_command}\""
+			],
+			"description": "Use this command to execute any Fabric OS command on a specified logical switch context."
+		}	
+		"Displays fabric topology": {
+			"prefix": ["topologyshow"],
+			"body": [
+				"topologyshow"
+			],
+			"description": " Displays the unicast fabric topology\n To display the errors for the topology: topologyshow --errors\n To display the topology with index numbers: topologyshow -index"
+		}	
+		"Displays switch and port status": {
+			"prefix": ["switchshow"],
+			"body": [
+				"switchshow"
+			],
+			"description": " Use this command to display switch, blade, and port status information\n (Optional)\n -portcount To display the port count\n -perf To display TX and RX performance in a single column"
+		}	
+		"Debugs a trunk link failure": {
+			"prefix": ["trunkdebug"],
+			"body": [
+				"trunkdebug ${1:port} ${2:port}"
+			],
+			"description": " Use this command to debug a trunk link failure."
+		}
+		"Different Boot Option": {
+			"prefix": ["boot"],
+			"body": [
+				"${1|fastboot,reboot,haReboot,sysShutdown|}"
+			],
+			"description": " Different Boot Option:\n fastboot Reboots the Control Processor\n reboot Reboots the control processor (CP)\n haReboot Performs high availability (HA) reboot\n sysShutdown Provides a graceful shutdown to protect the switch file systems."
+		}
+		"Configures fabric name": {
+			"prefix": ["fabricname"],
+			"body": [
+				"fabricname --set ${1:fabricname}"
+			],
+			"description": " Use this command to display the name of the fabric\n Optional: fabricname --show"
+		}
+		"Motto of the Day": {
+			"prefix": ["motd"],
+			"body": [
+				"motd --${1|set,show|} ${2:\"Message\"}"
+			],
+			"description": " Use this command to set the banner on the chassis\n The banner is a string of alphanumeric characters."
+		}
+		"Displays the banner text.": {
+			"prefix": ["bannershow"],
+			"body": [
+				"bannershow"
+			],
+			"description": "Displays the banner text."
+		}
+		"Displays the banner text.": {
+			"prefix": ["bannerset"],
+			"body": [
+				"bannerset ${1:\"Message\"}"
+			],
+			"description": "Displays the banner text."
+		}
+		"Helping by HW trouble": {
+			"prefix": ["sensorshow"],
+			"body": [
+				"sensorshow "
+			],
+			"description": "Displays sensor readings."
+		}
+		"Showing snapshot of switch health status": {
+			"prefix": ["sensorshow"],
+			"body": [
+				"mapsdb --show all"
+			],
+			"description": "Displays a summary and historical data of the errors for 5 rules and last 5 ports"
+		}
+		"Showing snapshot of switch health status": {
+			"prefix": ["sensorshow"],
+			"body": [
+				"tstimezone --${1:interactive}"
+			],
+			"description": "Displays or sets the system time zone.\n tstimezone Displays the current time zone.\n tstimezone --interactive Set the current timezone using the interactive mode"
+		}
+		//
+		//////////////////////////////	
+		//Test area for helping hand
+		//////////////////////////////
+		"Setting up TruFOS": {
+			"prefix": ["trufos"],
+			"body": [
+				"$LINE_COMMENT Check if there is a TruFOS certificate loaded"
+				"license --show"
+				"\n$LINE_COMMENT To get the certificate you need the switch license ID, run the command:"
+				"$LINE_COMMENT The ID could look like this example: 10:00:c5:f8:7c:44:1d:cd"
+				"license --show -lid"
+				"\n$LINE_COMMENT From the website support.broadcom.com, click LOGIN. Once logged on, click Hardware in the top navigation menu and select Brocade Storage Networking."
+				"$LINE_COMMENT Click TruFOS Certificate Request. The Trusted FOS Certificate Request page appears. Follow the instructions given on the Trusted FOS Certificate Request page to request Brocade TruFOS Certificates."
+				"$LINE_COMMENT Install the TruFOS certificate on the switch by running this commnad with your credentials"
+				"license --install -h ${1:host_ip} -t ${2:Protocol} -u ${3:user} -p ${4:password} -f ${5:filepath_to_xmlcertificatefile}"
+				"\n$LINE_COMMENT Check if your TruFOS certificate is loaded"
+				"license --show"
+			],
+			"description": " Setting up TruFOS\n For powershell user use this command:\n plink <username>@<ipaddress> -pw <password> -batch \"license --show\" "
+		}
+		"Setting up SAN-Switch": {
+			"prefix": ["switch_setup"],
+			"body": [
+				"$LINE_COMMENT ATTENTION this is only a guide and may vary in various points depending on the complexity of the environment to be set up. "
+				"$LINE_COMMENT Connect to the switch via RJ45 and set the IP-Addr., The Default IP/Mask 10.77.77.77/24"
+				"$LINE_COMMENT If this is the first connection to the new switch, you will first be asked to change the users' passwords before you can assign a new IP."
+				"ipaddrset -ipv4 -add -ethip ${1:ipaddress} -ethmask ${2:mask_ip} -gwyip ${3:gateway_ip} -dhcp ${4|on,off|}"
+				"\n$LINE_COMMENT If you want to create a fabric with multiple switches, you should adjust the Domain ID. A Domain ID may only occur once in a fabric!"
+				"$LINE_COMMENT First Disable the Switch with"
+				"switchDisable"
+				"\n$LINE_COMMENT Next, enter the following command"
+				"configure"
+				"\n$LINE_COMMENT This question should appear next: \"Fabric parameters (yes, y, no, n): [no]\""
+				"$LINE_COMMENT Enter \"y\" after the Fabric Parameters prompt"
+				"$LINE_COMMENT Enter a unique domain ID at the Domain promt, use a value from 1 through 239"
+				"$LINE_COMMENT Example:\"Domain: (1..239) [1] 4\""
+				"$LINE_COMMENT Respond to remaining prompts, or press \"Ctrl-D\" to accept the other default settings. After that enter the following command to re-enable the switch."
+				"switchEnable"
+				"\n$LINE_COMMENT The next part are licensed functions. To display licenses that have been activated at the factory, use:"
+				"license --show"
+				"\n$LINE_COMMENT Additional licenses can be installed by using this command:"
+				"license --install -h ${1:host_ip} -t ${2:Protocol} -u ${3:user} -p ${4:password} -f ${5:filepath_to_xmlcertificatefile}"
+				"\n$LINE_COMMENT Verify that the license was installed by entering the command:"
+				"license --show"
+				"\n$LINE_COMMENT To setup a NTP-Server use:"
+				"tsclockserver ${1:NTP_ip}"
+				"\n$LINE_COMMENT If no NTP-Server is available, set the timezone:"
+				"tstimezone --${1:interactive}"
+				"\n$LINE_COMMENT and set the Date and Time with \"date\" Example date \"0516073424\""
+				"date \"${1:MMDDhhmmYY}\""
+				"\n$LINE_COMMENT Give your Switch a Name for easier administration"
+				"switchname ${1:Switchname}"
+				"\n$LINE_COMMENT If available, a syslog server can also be configured"
+				"syslogadmin --set -ip ${1:ip_addr}"
+				"\n$LINE_COMMENT Verify that the syslog server is configured"
+				"syslogadmin --show -ip"
+				"\n$LINE_COMMENT It is recommended to check the password policy and adjust it if necessary. Check them with:"
+				"passwdcfg --showall"
+				"\n$LINE_COMMENT If necessary change them with:"
+				"passwdcfg --set -uppercase ${1:ABC...} -lowercase ${2:abc...} -digits ${3:123...} -minlength ${4:PW_length} -history ${5:0-24} -maxpasswordage ${6:Indays} -warning ${7:0-999}"
+				"\n$LINE_COMMENT If necessary change the \"admin_Installation_Password\" to \"final_password\" with:"
+				"passwd admin -old ${1:oldpassword} -new ${2:oldpassword}"
+				"\n$LINE_COMMENT Final Back up Configuration with:"
+				"configupload -all -${1|scp,sftp,ftp|} ${2:host(ip),${3:user},${4:config.txt},${5:password}}"
+			],
+			"description": " This is an exemplary default basic procedure for a basic configuration of a new SAN-Switch."
+		}
+		"Setting up virtual Fabric": {
+			"prefix": ["virtualfabric_setup"],
+			"body": [
+				"$LINE_COMMENT From Fabric OS v9.2.0, when VF is enabled and default admin account is disabled, the chassis admin roles are automatically assigned to all non-default accounts with admin roles."
+				"$LINE_COMMENT Connect to the physical chassis and log in using an account with the chassis-role permission, in \"classic way\" use the admin Account."
+				"$LINE_COMMENT Use the following command to verify whether VF mode is enabled"
+				"fosconfig --show"
+				"\n$LINE_COMMENT If not, use this command to enable VF mode and Enter \"y\" at the prompt, if they ask."
+				"fosconfig --enable vf"
+				"\n$LINE_COMMENT Enter the following command to create a logical switch where all logical ports are disabled while creating."
+				"$LINE_COMMENT The fabricID is the fabric ID that is to be associated with the logical switch. Enter \"y\" at the prompt."
+				"lscfg --create ${1:fabricID} -lisldisable"
+				"\n$LINE_COMMENT Set the context to the new logical switch, this means you \"jump\" to the new virtual switch"
+				"setcontext ${1:fabricID}"
+				"\n$LINE_COMMENT It is recommended to disable the vSW until its configuration is complete."
+				"switchdisable"
+				"\n$LINE_COMMENT Next, enter the following command to set a DomainID"
+				"configure"
+				"\n$LINE_COMMENT This question should appear next: \"Fabric parameters (yes, y, no, n): [no]\""
+				"$LINE_COMMENT Enter \"y\" after the Fabric Parameters prompt"
+				"$LINE_COMMENT Enter a unique domain ID at the Domain promt, use a value from 1 through 239, NOT the same as the Base Switch has!"
+				"$LINE_COMMENT Example:\"Domain: (1..239) [1] 4\""
+				"$LINE_COMMENT Respond to remaining prompts, or press \"Ctrl-D\" to accept the other default settings. After that enter the following command to re-enable the switch."
+				"switchEnable"
+				"\n$LINE_COMMENT The next part are licensed functions. To display licenses that have been activated at the factory, use:"
+				"lfcfg –-lislenable"
+				"\n$LINE_COMMENT Adding and Moving Ports on a Logical Switch use for Example: lscfg --config 5 -port 9-16" 
+				"$LINE_COMMENT Enter \"y\" at the prompt and it will add port 9-16 to vSW 5"
+				"lsCfg --config ${1:fabricID} -port ${2:port/portrange}"
+				"\n$LINE_COMMENT Displaying a List of All Logical Switches and the Ports Assigned to Them use"
+				"lscfg --show"
+				"\n$LINE_COMMENT Attention the assigned ports to the vSW are disabled by default and must be activated with portenable \"port or portrange\""
+				"portenable ${1:port_or_portrange}"
+				"\n$LINE_COMMENT To \"jump\" back to the \"base\" switch use setcontext and if you nothing changes there the default value should be 128"
+				"$LINE_COMMENT Example: setcontext 128"
+				"setcontext ${1:fabricID}"
+				"\n$LINE_COMMENT Enter the following command to display information about all of the logical switches"
+				"lsCfg --show -n"
+				"\n$LINE_COMMENT Most of the commands or settings are similar to those of a classic switch, so the vSW can also be assigned an IP-Address or specific users and so on."
+				"$LINE_COMMENT For this I recommend the respective Admin Guide of the FOS-Version!"
+			],
+			"description": " This is an exemplary default basic procedure for a basic setup of a Virtual Fabric."
+		}
+}
