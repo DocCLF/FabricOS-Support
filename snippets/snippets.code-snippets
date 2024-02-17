@@ -2,596 +2,1387 @@
 		//////////////////////////////
 		//Alias area
 		//////////////////////////////
-		"Creates a zone alias": {
-			"prefix": ["alicreate"],
+		"fos_alias_create": {
+			"prefix": ["fos_alias, alicreate"],
 			"body": [
-				"alicreate \"${1:AliasName}\" , \"${2:WWPN}\""
+				"alicreate \"${1:aliasName}\",\"${2:WWPN}\""
 			],
 			"description": "Create a new Alias"
 		}
-		"Add a member to a zone alias": {
-				"prefix": ["aliadd"],
-				"body": [
-					"aliadd \"${1:AliasName}\" , \"${2:WWPN}\""
-				],
-				"description": " Add one or more members to an existing Alias.\nThe alias member list cannot contain another zone alias."
-			}
-		//
+		"fos_alias_add": {
+			"prefix": ["fos_alias, aliadd"],
+			"body": [
+				"aliadd \"${1:aliasName}\",\"${2:WWPN}\""
+			],
+			"description": " Add one or more members to an existing Alias.\nThe alias member list cannot contain another zone alias."
+		}
+		"fos_alias_delete": {
+			"prefix": ["fos_alias, alidelete"],
+			"body": [
+				"alidelete \"${1:aliasName}\""
+			],
+			"description": " Deletes a zone alias\n Example: alidelete \"array2\""
+		}
+		"fos_alias_remove": {
+			"prefix": ["fos_alias, aliRemove"],
+			"body": [
+				"aliRemove \"${1:aliasName}\",\"${2:WWPN}\""
+			],
+			"description": " Removes a member from a zone alias\n Example:aliremove \"array1\",\"21:00:00:20:37:0c:76:8c\""
+		}
+		"fos_alias_show": {
+			"prefix": ["fos_alias, aliShow"],
+			"body": [
+				"aliShow"
+			],
+			"description": " Displays zone alias information\n alishow --ic \"arr*\"\nTo display all zone alias names beginning with \"arr\", regardless of the case"
+		}
 		//////////////////////////////	
 		//Zoning area
 		//////////////////////////////	
-		"Creates a default Zone": {
-				"prefix": ["zonecreate"],
-				"body": [
-					"zonecreate \"${1:ZoneName}\" , \"${2:Member};${3:Member}\""
-				],
-				"description": "Create a new basic zone"
-		}
-		"Creates a default Peer Zone": {
-				"prefix": ["peerzone","pzone"],
-				"body": [
-					"zonecreate --peerzone \"${1:ZoneName}\" -principal \"${2:StorageMember}\";\"${3:StorageMember}\" -members \"${4:HostMember}\";\"${5:HostMember}\""
-				],
-				"description": "Create a new Peer Zone"
-		}
-		"Adds a Member to the default Zone": {
-			"prefix": ["zoneadd"],
+		"fos_copy_zone": {
+			"prefix": ["fos_zone, zone_copy"],
 			"body": [
-				"zoneadd \"${1:ZoneName}\" , \"${2:Member};${3:Member}\""
+				"zone --copy \"${1:source}\" \"${2:destination}\""
 			],
-			"description": "Add one or more members to an existing default zone"
+			"description": " Copies a specified zone object or all zone objects\n There are some more parameters, but these are optional."
 		}
-		"Adds a Member AND Principal to the Peer Zone": {
-			"prefix": ["peezoneadd"],
+		"fos_help_zone": {
+			"prefix": ["fos_zone, zonehelp"],
 			"body": [
-				"zoneadd --peerzone \"${1:ZoneName}\" -principal \"${2:StorageMember}\" -members \"${3:HostMember}\""
+				"zonehelp"
 			],
-			"description": "Add one or more Member AND Principal to an existing Peer Zone"
-		}		
-		"Adds a Member OR Principal to the Peer Zone": {
-				"prefix": ["peerzoneadd"],
-				"body": [
-					"zoneadd --peerzone \"${1:ZoneName}\" ${2|-principal,-members|} \"${3:Member}\""
-				],
-				"description": "Add one or more Member OR Principal to an existing Peer Zone"
-		}
-		"Removes a member from a default zone": {
-			"prefix": ["zoneremove"],
-			"body": [
-				"zoneremove \"${1:ZoneName}\" , \"${2:Member};${3:Member}\""
-			],
-			"description": "Remove one or more members from an existing zone"
-		}
-		"Removes a member AND principal (Peer Zone) from a zone": {
-			"prefix": ["peerzoneremove"],
-			"body": [
-				"zoneremove --peerzone \"${1:ZoneName}\" -principal \"${2:StorageMember}\" -members \"${3:HostMember}\""
-			],
-			"description": "Remove one or more Member AND Principal members from a Peer Zone"
+			"description": "Displays a description of zoning commands"
 		}	
-		"Removes a member OR principal (Peer Zone) from a zone": {
-			"prefix": ["peerzoneremove"],
+		"fos_add_zone": {
+			"prefix": ["fos_zone, zoneadd"],
 			"body": [
-				"zoneremove --peerzone \"${1:ZoneName}\" ${2|-principal,-members|} \"${3:Alias}\""
+				"zoneadd \"${1:ZoneName}\",\"${2:Member};${3:Member}\""
 			],
-			"description": "Remove one or more Member OR Principal members from a Peer Zone"
+			"description": " Add one or more members to an existing zone.\n Example: zoneadd \"Blue_Zone\",\"Member1;Member2;Member3\""
 		}
-		"Show only Peer Zones": {
-			"prefix": ["peerzoneshow"],
+		"fos_create_zone": {
+			"prefix": ["fos_zone, zonecreate"],
 			"body": [
-				"zoneshow --peerzone -all"
+				"zonecreate \"${1:ZoneName}\",\"${2:Member};${3:Member}\""
 			],
-			"description": "List all Peer Zones in the zone database"
-		}	
-		"Show all Zones": {
-			"prefix": ["zoneshow"],
+			"description": " Create a new basic zone\n Example: zonecreate \"Blue_Zone\",\"Member1;Member2;Member3\""
+		}
+		"fos_rm_zone": {
+			"prefix": ["fos_zone, zoneremove"],
+			"body": [
+				"zoneremove \"${1:ZoneName}\",\"${2:Member};${3:Member}\""
+			],
+			"description": " Remove one or more members from an existing zone\n There are some more parameters, but these are optional."
+		}
+		"fos_delete_zone": {
+			"prefix": ["fos_zone, zonedelete"],
+			"body": [
+				"zonedelete \"${1:ZoneName}\""
+			],
+			"description": " Deletes a zone\n Example: zonedelete \"GreenZone\""
+		}
+		"fos_show_zone": {
+			"prefix": ["fos_zone, zoneshow"],
 			"body": [
 				"zoneshow"
 			],
-			"description": "List all Zones in the zone database"
-		}	
-		"Renames a zone object": {
-			"prefix": ["zoneObjectRename"],
-			"body": [
-				"zoneObjectRename \"${1:oldName}\" , \"${2:newName}"
-			],
-			"description": "Rename a zone object. You can use this command for all zone object types, including cfg, zone, and alias."
+			"description": " List all Zones in the zone database\n There are some more parameters, but these are optional."
 		}
-		"Copies a zone object": {
-			"prefix": ["zoneObjectCopy"],
+		"fos_fabriclock_zone": {
+			"prefix": ["fos_zone, zoneFabricLock"],
 			"body": [
-				"zoneObjectCopy \"${1:oldName}\" , \"${2:newName}"
+				"zoneFabricLock --${1|show,help|}"
 			],
-			"description": "Make a copy of an existing zone object and give it a new name. The resulting object is of the same type as the original object. You can use this command for all zone object types, including cfg, zone, and alias."
+			"description": " Displays the zone fabric lock information\n There are some more parameters, but these are optional."
+		}
+		"fos_fabriclock_zone_time": {
+			"prefix": ["fos_zone, zoneFabricLock_timeout"],
+			"body": [
+				"zoneFabricLock --timeout ${1:timeoutvalue_in_mins}"
+			],
+			"description": " Configures the zone fabric lock timeout duration\n There are some more parameters, but these are optional."
+		}	
+		"fos_ns_zonemember": {
+			"prefix": ["fos_zone, nszonemember"],
+			"body": [
+				"nszonemember -${1|a,n,u|}"
+			],
+			"description": " Display the information of all the online devices which are zoned with the given device.\n There are some more parameters, but these are optional."
+		}
+		//////////////////////////////	
+		//Zoning area peer
+		//////////////////////////////	
+		"fos_add_peerzone_pam": {
+			"prefix": ["fos_peerzone, peerzoneadd"],
+			"body": [
+				"zoneadd --peerzone \"${1:ZoneName}\" -principal \"${2:StorageMember}\" -members \"${3:HostMember}\""
+			],
+			"description": " Add one or more Member AND Principal to an existing Peer Zone"
+		}
+		"fos_add_peerzone_pom": {
+			"prefix": ["fos_peerzone, add_principal, add_members"],
+			"body": [
+				"zoneadd --peerzone \"${1:ZoneName}\" ${2|-principal,-members|} \"${3:Member}\""
+			],
+			"description": " Add one or more Principal OR Member to an existing Peer Zone\n Example: zoneadd --peerzone \"Blue_Zone\" -principal \"principal1;principal2\"\n Example: zoneadd --peerzone \"Blue_Zone\" -members \"Member1;Member2\""
+		}
+		"fos_create_peerzone": {
+			"prefix": ["fos_peerzone","peerzonecreate"],
+			"body": [
+				"zonecreate --peerzone \"${1:ZoneName}\" -principal \"${2:StorageMember};${3:StorageMember}\" -members \"${4:HostMember};${5:HostMember}\""
+			],
+			"description": " Create a new Peer Zone\n Example: zonecreate --peerzone \"Blue_Zone\" -principal \"principal1;principal2\" -members \"Member1;Member2\""
+		}
+		"fos_rm_peerzone_pam": {
+			"prefix": ["fos_peerzone, peerzoneremove"],
+			"body": [
+				"zoneremove --peerzone \"${1:ZoneName}\" -principal \"${2:StorageMember}\" -members \"${3:HostMember}\""
+			],
+			"description": " Remove one or more Member AND Principal members from a Peer Zone\n There are some more parameters, but these are optional."
+		}	
+		"fos_rm_peerzone_pom": {
+			"prefix": ["fos_peerzone, remove_principal, remove_members"],
+			"body": [
+				"zoneremove --peerzone \"${1:ZoneName}\" ${2|-principal,-members|} \"${3:alias}\""
+			],
+			"description": " Remove one or more Member OR Principal members from a Peer Zone\n Example: zoneremove --peerzone \"Blue_Zone\" -principal \"principal1;principal2\"\n Example: zoneremove --peerzone \"Blue_Zone\" -members \"Member1;Member2\""
+		}
+		"fos_delete_peerzone_pom": {
+			"prefix": ["fos_peerzone, peerzonedelete"],
+			"body": [
+				"zonedelete \"${1:ZoneName}\""
+			],
+			"description": " Deletes a zone\n Example: zonedelete \"GreenZone\""
+		}
+		"fos_show_peerzone_pom": {
+			"prefix": ["fos_peerzone, peerzoneshow"],
+			"body": [
+				"zoneshow --peerzone -all"
+			],
+			"description": " List all Peer Zones in the zone database\n There are some more parameters, but these are optional."
+		}	
+		//////////////////////////////	
+		//Zone Object
+		//////////////////////////////	
+		"fos_zoneObject_rename": {
+			"prefix": ["fos_zoneObject, zoneObjectRename"],
+			"body": [
+				"zoneObjectRename \"${1:oldName}\",\"${2:newName}"
+			],
+			"description": " Rename a zone object.\n You can use this command for all zone object types, including cfg, zone, and alias."
+		}
+		"fos_zoneObject_Replace": {
+			"prefix": ["fos_zoneObject, zoneObjectReplace"],
+			"body": [
+				"zoneObjectReplace \"${1:oldMember}\",\"${2:newMember}"
+			],
+			"description": " Replace the existing member of a zone or a Peer Zone with a new member.\n This command can be used to replace members of an alias, but an alias itself cannot be replaced."
+		}
+		"fos_zoneObject_copy": {
+			"prefix": ["fos_zoneObject, zoneObjectCopy"],
+			"body": [
+				"zoneObjectCopy \"${1:objectName}\",\"${2:newName}"
+			],
+			"description": " Make a copy of an existing zone object and give it a new name.\n The resulting object is of the same type as the original object.\n You can use this command for all zone object types, including cfg, zone, and alias."
+		}	
+		"fos_zoneObject_expunge": {
+			"prefix": ["fos_zoneObject, zoneObjectExpunge"],
+			"body": [
+				"zoneObjectExpunge \"${1:objectName}\""
+			],
+			"description": " Use this command to expunge a zone object.\n Aliases that are members of a Target Driven Peer Zone are not allowed to be expunged!\n You can use this command for all zone object types, including cfg, zone, and alias."
 		}	
 		//
 		//////////////////////////////	
 		//Configuration area
 		//////////////////////////////	
-		"Create a zone configuration": {
-			"prefix": ["cfgcreate"],
+		"fos_cfg_create": {
+			"prefix": ["fos_cfg, cfgcreate"],
 			"body": [
-				"cfgcreate \"${1:cfgName}\" \"${2:Member}\""
+				"cfgcreate \"${1:cfgName}\",\"${2:Zonename}\""
 			],
-			"description": "Use this command to create a new zone configuration"
+			"description": " Create a new zone configuration\n Example: cfgcreate \"Green_cfg\",\"bluezone;redzone;blackzone\""
 		}
-		"Adds a member to a zone configuration": {
-			"prefix": ["cfgadd"],
+		"fos_cfg_add": {
+			"prefix": ["fos_cfg, cfgadd"],
 			"body": [
-				"cfgadd \"${1:cfgName}\" \"${2:Member}\""
+				"cfgadd \"${1:cfgName}\",\"${2:Zonename}\""
 			],
-			"description": "Use this command to add one or more members to an existing zone configuration"
+			"description": " Add one or more Zones to an existing zone configuration\n Example: cfgadd \"Green_cfg\",\"bluezone;redzone\""
 		}		
-		"Removes a member from a zone configuration": {
-			"prefix": ["cfgremove"],
+		"fos_cfg_remove": {
+			"prefix": ["fos_cfg, cfgremove"],
 			"body": [
-				"cfgremove \"${1:cfgName}\" \"${2:Member}\""
+				"cfgremove \"${1:cfgName}\",\"${2:Zonename}\""
 			],
-			"description": "Use this command to remove one or more members from an existing zone configuration. If all members are removed, the zone configuration is deleted."
+			"description": " Remove one or more Zone from an existing zone configuration.\n If all Zones are removed, the zone configuration is deleted."
+		}
+		"fos_cfg_delete": {
+			"prefix": ["fos_cfg, cfgdelete"],
+			"body": [
+				"cfgdelete \"${1:cfgName}\""
+			],
+			"description": "Deletes a zone configuration\n Example: cfgdelete \"Green_cfg\""
+		}
+		"fos_cfg_save": {
+			"prefix": ["fos_cfg, cfgsave"],
+			"body": [
+				"cfgsave"
+			],
+			"description": "Saves the zone configuration to nonvolatile memory\n There are some more parameters, but these are optional."
+		}
+		"fos_cfg_enable": {
+			"prefix": ["fos_cfg, cfgenable"],
+			"body": [
+				"cfgenable \"${1:cfgName}\""
+			],
+			"description": "Enables a zone configuration\n There are some more parameters, but these are optional."
+		}
+		"fos_cfg_disable": {
+			"prefix": ["fos_cfg, cfgdisable"],
+			"body": [
+				"cfgdisable"
+			],
+			"description": "Disables a zone configuration\n There are some more parameters, but these are optional."
+		}
+		"fos_cfg_clear": {
+			"prefix": ["fos_cfg, cfgclear"],
+			"body": [
+				"cfgclear"
+			],
+			"description": "Clear all zone configurations\n There are some more parameters, but these are optional."
 		}	
-		"Downloads configuration data to the system": {
-			"prefix": ["configdownload"],
+		"fos_cfg_download": {
+			"prefix": ["fos_cfg, configdownload"],
 			"body": [
 				"configdownload -all -${1|scp,sftp,ftp|} ${2:host(ip),${3:user},${4:config.txt},${5:password}}"
 			],
-			"description": "Use this command to download all system configuration data for the chassis and all logical switches (requires chassis permissions)"
+			"description": " Download all system configuration data for the chassis and all logical switches (requires chassis permissions)\n There are some more parameters, but these are optional."
 		}	
-		"Upload all system configuration data to an external Server": {
-			"prefix": ["configupload"],
+		"fos_cfg_upload": {
+			"prefix": ["fos_cfg, configupload"],
 			"body": [
 				"configupload -all -${1|scp,sftp,ftp|} ${2:host(ip),${3:user},${4:config.txt},${5:password}}"
 			],
-			"description": "Use this command to upload all system configuration data to an external Server"
+			"description": " Upload all system configuration data to an external Server.\n There are some more parameters, but these are optional."
 		}
-		"View the configuration in the effective zone database": {
-			"prefix": ["zoneaddpeerprin"],
+		"fos_cfg_show": {
+			"prefix": ["fos_cfg, cfgshow"],
+			"body": [
+				"cfgshow"
+			],
+			"description": "Display zone configuration information.\n There are some more parameters, but these are optional."
+		}
+		"fos_cfg_actvshow": {
+			"prefix": ["fos_cfg, cfgactvshow"],
 			"body": [
 				"cfgactvshow"
 			],
-			"description": "Viewing the Configuration in the Effective Zone Database"
-		}	
-		//
+			"description": "Displays effective zone configuration information"
+		}
+		"fos_cfg_size": {
+			"prefix": ["fos_cfg, cfgsize"],
+			"body": [
+				"cfgsize"
+			],
+			"description": "Display the size details of the zone database"
+		}
+		"fos_cfg_transabort": {
+			"prefix": ["fos_cfg, cfgtransabort"],
+			"body": [
+				"cfgtransabort"
+			],
+			"description": "Abort the current zoning transaction without committing it"
+		}
+		"fos_cfg_transshow": {
+			"prefix": ["fos_cfg, cfgtransshow"],
+			"body": [
+				"cfgtransshow"
+			],
+			"description": "Displays information about the current zoning transaction.\n There are some more parameters, but these are optional."
+		}
+		"fos_cfg_defzone": {
+			"prefix": ["fos_cfg, defzone"],
+			"body": [
+				"defzone --show"
+			],
+			"description": "Displays the default zone access mode for more use --help.\n There are some more parameters, but these are optional."
+		}
 		//////////////////////////////	
 		//setup area
 		//////////////////////////////	
-		"To configure the DNS domain name, DNS server address": {
-			"prefix": ["dnsconfig"],
+		"fos_setup_dnscfg": {
+			"prefix": ["fos_setup, dnsconfig"],
 			"body": [
 				"dnsconfig --add -domain ${1:example.com} -serverip1 ${2:8.8.8.8} -serverip2 ${3:8.8.4.4}"
 			],
-			"description": "Use this command to set the domain name service parameters"
+			"description": " Sets domain name service (DNS) parameters\n Example: dnsconfig --add -domain broadcom.com -serverip1 1.1.1.1 -serverip2 1.1.2.1"
 		}
-		"To configure the DNS domain name, DNS server address": {
-			"prefix": ["dnsconfig"],
+		"fos_setup_dnscfgshow": {
+			"prefix": ["fos_setup, dnscfg_show"],
 			"body": [
-				"dnsconfig --add -domain ${1:example.com} -serverip1 ${2:8.8.8.8} -serverip2 ${3:8.8.4.4}"
+				"dnsconfig --show"
 			],
-			"description": "Use this command to set the domain name service parameters"
+			"description": "Display the DNS configurations"
 		}
-		"Sets or displays the idle timeout value for a shell or SSH login session": {
-			"prefix": ["timeout"],
+		"fos_setup_timeout": {
+			"prefix": ["fos_setup, timeout"],
 			"body": [
-				"timeout --session ${1:time}"
+				"timeout --session ${1:time_in_min}"
 			],
-			"description": "Use this command without an operand to display the current timeout value (in minutes) after which idle logins are automatically terminated"
+			"description": " Configures the session idle timeout (in min). Currently, this option supports only SSH session\n Example: timeout --session 10\n There are some more parameters, but these are optional."
 		}
-		"The following example sets the NTP server to a specified address": {
-			"prefix": ["tsclockserver"],
+		"fos_setup_tsclockserver": {
+			"prefix": ["fos_setup, tsclockserver"],
 			"body": [
 				"tsclockserver ${1:NTP_ip}"
 			],
-			"description": "The tsClockServer command accepts multiple NTP server addresses in IPv4, IPv6, or DNS name formats"
+			"description": " The tsClockServer command accepts multiple NTP server addresses in IPv4, IPv6, or DNS name formats\n There are some more parameters, but these are optional."
 		}
-		"Set the switch or chassis name": {
-			"prefix": ["switchname,chassisName"],
+		"fos_setup_hwnames": {
+			"prefix": ["fos_setup, switchname, chassisName"],
 			"body": [
 				"${1|switchname,chassisName|} ${2:name}"
 			],
-			"description": "Use this command to set the switch or chassis name"
+			"description": "Set the switch or chassis name"
 		}
-		"Password police overview": {
-			"prefix": ["passwdcfg"],
-			"body": [
-				"passwdcfg --showall"
-			],
-			"description": "Display the current password configuration parameters"
-		}
-		"Manages the password policies": {
-			"prefix": ["passwdcfg"],
-			"body": [
-				"passwdcfg --set -uppercase ${1:ABC...} -lowercase ${2:abc...} -digits ${3:123...} -minlength ${4:PW_length} -history ${5:0-24} -maxpasswordage ${6:Indays} -warning ${7:0-999}"
-			],
-			"description": "Use this command to manage password policies."
-		}
-		"Add a user account.": {
-			"prefix": ["adduser,userconfig"],
-			"body": [
-				"userconfig --add ${1:username} -l ${2:LF_ID_list(1-128)} -r ${3:role} -c ${4:chassis_role} -p ${5:password}"
-			],
-			"description": "Use this command to add user accounts on a switch"
-		}
-		"Delete a user account.": {
-			"prefix": ["deleteuser,userconfig"],
-			"body": [
-				"userconfig --delete ${1:username}"
-			],
-			"description": "Use this command to delete user accounts on a switch"
-		}
-		"Sets the Ethernet IP addresses": {
-			"prefix": ["ipaddrset"],
+		"fos_setup_ip": {
+			"prefix": ["fos_setup, ipaddrset"],
 			"body": [
 				"ipaddrset -ipv4 -add -ethip ${1:ipaddress} -ethmask ${2:mask_ip} -gwyip ${3:gateway_ip} -dhcp ${4|on,off|}"
 			],
-			"description": "Use this command to configure the IP addresses on a switch"
+			"description": "Add a IP addresses on a switch"
 		}
-		"Sets the Ethernet IP addresses for a logical switch": {
-			"prefix": ["ipaddrset"],
+		"fos_setup_ip_lsw": {
+			"prefix": ["fos_setup, ipaddrset_fid"],
 			"body": [
 				"ipaddrset -ls ${1:FID} --add ${2:ipaddress/mask}"
 			],
 			"description": "Use the following procedure to set up IP addresses for a logical switch"
 		}
-		"Sets the Ethernet IP addresses for a logical switch": {
-			"prefix": ["license"],
+		"fos_setup_ip_show": {
+			"prefix": ["fos_setup, ipaddrshow"],
+			"body": [
+				"ipaddrshow"
+			],
+			"description": " Displays the IP addresses for a switch -chassis (optional) \n There are some more parameters, but these are optional."
+		}
+		"fos_setup_license": {
+			"prefix": ["fos_setup, license"],
 			"body": [
 				"license --show"
 			],
 			"description": " Displays license keys\n Old Command: licenseshow"
 		}
-		//
-		//////////////////////////////	
-		//Virtual Fabrics area
-		//////////////////////////////	
-		"Displays Fabric OS features": {
-			"prefix": ["fosconfig"],
-			"body": [
-				"fosconfig --show"
-			],
-			"description": "Use this command Displays Fabric OS features"
-		}	
-		"Enable or disable a Virtual Fabrics Mode": {
-			"prefix": ["fosconfig"],
-			"body": [
-				"fosconfig --${1|enable,disable|} vf"
-			],
-			"description": "Use this command to enable or disable a Virtual Fabrics Mode"
-		}
-		"Creates or delete a logical switch instance": {
-			"prefix": ["lscfg"],
-			"body": [
-				"lscfg --${1|create,delete|} ${2:new_FID}"
-			],
-			"description": "Use this command to create or delete a logical switch instance"
-		}
-		"Assign ports to a logical switch": {
-			"prefix": ["lscfg"],
-			"body": [
-				"lscfg --config ${1:FID} -port ${2:port/portrange}"
-			],
-			"description": "Use this command to assign ports to a logical switch"
-		}
-		"Displays the partition configuration on a switch or chassis": {
-			"prefix": ["lscfg"],
-			"body": [
-				"lscfg --show -n"
-			],
-			"description": "Displays the partition configuration on a switch or chassis, -n is optional "
-		}
-		"Jump to a logical switch context by a specified FID": {
-			"prefix": ["setcontext"],
-			"body": [
-				"setcontext ${1:FID_or_swName}"
-			],
-			"description": "Use this command to jump into a logical switch context by a specified FID"
-		}
-		//
-		//////////////////////////////	
-		//firmware area
-		//////////////////////////////		
-		"Downloads firmware from a remote host, a local directory, or a USB device": {
-			"prefix": ["firmwaredownload"],
-			"body": [
-				"firmwaredownload -p ${1|scp,sftp,ftp,http|} ${2:host(ip),${3:user},${4:path},${5:password}}"
-			],
-			"description": "Use this command to download switch firmware from an FTP or SSH server or local NFS directory to nonvolatile storage"
-		}
-		"Commits switch firmware": {
-			"prefix": ["firmwarecommit"],
-			"body": [
-				"firmwarecommit"
-			],
-			"description": "Commits switch firmware"
-		}
-		"Restores the former active firmware image": {
-			"prefix": ["firmwarerestore"],
-			"body": [
-				"firmwarerestore"
-			],
-			"description": "Use this command to restore the former active Fabric OS firmware image"
-		}
-		"Displays the status of a firmware download.": {
-			"prefix": ["firmwaredownloadstatus"],
-			"body": [
-				"firmwaredownloadstatus"
-			],
-			"description": "Use this command to display an event log that records the progress and status of events during a firmware download"
-		}
-		"Firmware version and download history.": {
-			"prefix": ["firmwareshow"],
-			"body": [
-				"firmwareshow --history"
-			],
-			"description": "Use this command to display the firmware versions and the firmware download history."
-		}
-		//
-		//////////////////////////////	
-		//support area
-		//////////////////////////////
-		"Saves support information to an server": {
-			"prefix": ["supportsave"],
-			"body": [
-				"supportsave -h ${1:host_ip} -d ${2:remote_dir} -l ${3|scp,sftp,ftp|} -u ${4:user_name} -p ${5:password}"
-			],
-			"description": "To save RASLOG, TRACE, supportShow, and other support information to an server"
-		}
-		"Saves Support information to USB": {
-			"prefix": ["supportsaveUSB"],
-			"body": [
-				"supportsave -U -d ${1:remote_dir}"
-			],
-			"description": "To collect support information on a switch and save it to an attached USB device"
-		}
-		//
-		//////////////////////////////	
-		//port area
-		//////////////////////////////
-		"Configures a port to support long distance links": {
-			"prefix": ["portcfglongdistance"],
-			"body": [
-				"portcfglongdistance ${1:port} ${2|L0,LE,LD,LS|} 1 -distance ${3:distance} -framesize ${4:frame_size}"
-			],
-			"description": "Use this command to allocate frame buffer credits to a port or to configure a specified long distance link. The port can only be used as an E_Port."
-		}
-		"Configures normal distance E_Port buffer allocation": {
-			"prefix": ["portcfgeportcredits"],
-			"body": [
-				"portcfgeportcredits --${1|enable,disable,show|} ${2:port} ${3:credits_in_use_with_enable}"
-			],
-			"description": "Use this command to change the default credit allocation for a normal distance E_Port or EX_Port by allocating the specified number of credits to the port."
-		}
-		"Displays trunking information": {
-			"prefix": ["trunkshow"],
-			"body": [
-				"trunkshow -${1|perf,slotport,swname|}"
-			],
-			"description": " Use this command to display trunking information of E_Ports, F_Ports, and EX_Ports\n (optional)\n -perf for bandwidth, throughput, and percentage of link utilization\n -swname bandwidth, throughput, and percentage of link utilization\n -slotport neighbor port detail in slot/port format"
-		}
-		"Displays interswitch link  information": {
-			"prefix": ["islshow"],
-			"body": [
-				"islshow -${1:slotport}"
-			],
-			"description": " Use this command to display the current connections and status of the interswitch link (ISL) for each port on a switch.\n (optional)\n -slotport display neighbor details"
-		}
-		"Configures F_Port buffer allocation": {
-			"prefix": ["portCfgFportBuffers"],
-			"body": [
-				"portCfgFportBuffers --${1|enable,disable|} ${2:port} ${3:credits_in_use_with_enable}"
-			],
-			"description": "Use this command to change the default buffer allocation for an F_Port and to allocate a specified number of buffers to the port."
-		}
-		"To calculate the buffers required per port": {
-			"prefix": ["portbuffercalc"],
-			"body": [
-				"portbuffercalc ${1:port} -distance ${2:in_km} -speed ${3|4,8,16,32|} -framesize ${4:framesize_in_bytes}"
-			],
-			"description": "Use this command to calculate how many buffers are required for a given distance, speed, and framesize"
-		}
-		"Enables or disables credit recovery on a port": {
-			"prefix": ["portcfgcreditrecovery"],
-			"body": [
-				"portcfgcreditrecovery --${1|enable,disable,help|} ${2:port}"
-			],
-			"description": "Use this command to enable or disable credit recovery on a port"
-		}
-		"Portinformation": {
-			"prefix": ["portcfgshow"],
-			"body": [
-				"portcfgshow ${1:port}"
-			],
-			"description": "Use this command to display the current configuration of a port."
-		}
-		"Trunking Port cfg": {
-			"prefix": ["portcfgtrunkport"],
-			"body": [
-				"portcfgtrunkport ${1:port} ${2|0,1|}" 
-			],
-			"description": " Specify 1 to enable trunking on the specified port.\n Specify 0 to disable trunking on the port.\n This operand is required."
-		}
-		"Switchtrunk cfg": {
-			"prefix": ["switchcfgtrunk"],
-			"body": [
-				"switchcfgtrunk ${2|0,1|}" 
-			],
-			"description": " Enables or disables trunking on all the ports of a switch\n Specify 1 to enable trunking on all ports. Specify 0 to disable trunking on all ports.\n This operand is required."
-		}
-		//
-		//////////////////////////////	
-		//ntk comands area
-		//////////////////////////////
-		"Use the following procedure to view the CLI command log": {
-			"prefix": ["clihistory"],
-			"body": [
-				"clihistory"
-			],
-			"description": "Entering clihistory with no keywords displays the command line history for the currently logged-in user only."
-		}
-		"IP-Addr. information": {
-			"prefix": ["ipaddrshow"],
-			"body": [
-				"ipaddrshow"
-			],
-			"description": "Use this command to display the IP addresses configured in the system."
-		}
-		"TCP Timeout level": {
-			"prefix": ["timeoutlevel"],
-			"body": [
-				"ethif --${1|show,set|} -tcptimeoutlevel"
-			],
-			"description": " Display and set TCP timeout level\n To set the timeoutlevel use ethif --set -tcptimeoutlevel 2\n Timeout level are:\n 1: 3 seconds\n 2: 7 seconds\n 3: 15 seconds\n 4: 31 seconds\n 5: 63 seconds"
-		}
-		"Use the following procedure to set the device date and time": {
-			"prefix": ["date"],
-			"body": [
-				"date \"${1:MMDDhhmmYY}\""
-			],
-			"description": " Use the following procedure to set the device date and time.\n Example: date \"0821083524\"\n Result: AUG 21 08:35 UTC 2024\n MM is the month; valid values are 01 through 12.\n DD is the date; valid values are 01 through 31.\n hh is the hour; valid values are 00 through 23.\n mm is minutes; valid values are 00 through 59.\n YY is the year; valid values are 00 through 37 and 70 through 99 (year values from 70 through 99 are interpreted as 1970 through 1999; year values from 00 through 37 are interpreted as 2000 through 2037)."
-		}
-		"Assigns port names": {
-			"prefix": ["portname"],
-			"body": [
-				"portname ${1:Port} -n \"${2:portname}\""
-			],
-			"description": "Use this command to assign a port name to a specified port."
-		}
-		"Set all ports on a switch to the same speed": {
-			"prefix": ["switchcfgspeed"],
-			"body": [
-				"switchcfgspeed ${1:speed}"
-			],
-			"description": " Example: switchcfgspeed 32 (All Ports are set at a fixed speed of 32Gb/s)\n 0 -> Autosensing mode. The port automatically configures for the highest speed.\n 1 -> The port is set at a fixed speed of 1Gb/s (not supported on Brocade Gen 6 platforms).\n 2 -> The port is set at a fixed speed of 2Gb/s (not supported on Brocade Gen 6 platforms).\n 4 -> The port is set at a fixed speed of 4Gb/s.\n 8 -> The port is set at a fixed speed of 8Gb/s.\n 16 -> The port is set at a fixed speed of 16Gb/s (not supported on 8G platforms).\n 32 -> The port is set at a fixed speed of 32Gb/s (not supported on 8G platforms)."
-		}
-		"PortCFGspeed": {
-			"prefix": ["portcfgSpeed"],
-			"body": [
-				"portcfgSpeed ${1:port} ${2:speed}"
-			],
-			"description": " Setting Port Speed. Example: portcfgSpeed 0 16\n 0 -> Autosensing mode (hardware). The port automatically configures for maximum speed.\n 8 -> The port is set at a fixed speed of 8G.\n 16 -> The port is set at a fixed speed of 16G (not supported on 8G platforms)\n 32 -> The port is set at a fixed speed of 32G (not supported on 8G and 16G platforms)\n 64 -> The port is set at a fixed speed of 64G. (supported only on the port blades and pizza boxes of the Brocade Gen 7 platform)"
-		}	
-		"Enabling In-Flight Compression": {
-			"prefix": ["compression"],
-			"body": [
-				"portdisable ${1:port}",
-				"portcfgcompress --${2|enable,disable|} ${1:port}",
-				"portenable ${1:port}"
-			],
-			"description": "Enable in-flight compression to provide better bandwidth use on the ISLs, especially over long distance"
-		}
-		"Executes any Fabric OS command on a specified or all the logical switches": {
-			"prefix": ["fosexec"],
-			"body": [
-				"# Example: fosexec --fid 10 -cmd \"switchshow\""
-				"# Example: fosexec --fid all -cmd \"switchshow\"\n"
-				"fosexec --fid ${1:FID_or_all} -cmd \"${2:FOS_command}\""
-			],
-			"description": "Use this command to execute any Fabric OS command on a specified logical switch context."
-		}	
-		"Displays fabric topology": {
-			"prefix": ["topologyshow"],
-			"body": [
-				"topologyshow"
-			],
-			"description": " Displays the unicast fabric topology\n To display the errors for the topology: topologyshow --errors\n To display the topology with index numbers: topologyshow -index"
-		}	
-		"Displays switch and port status": {
-			"prefix": ["switchshow"],
-			"body": [
-				"switchshow"
-			],
-			"description": " Use this command to display switch, blade, and port status information\n (Optional)\n -portcount To display the port count\n -perf To display TX and RX performance in a single column"
-		}	
-		"Debugs a trunk link failure": {
-			"prefix": ["trunkdebug"],
-			"body": [
-				"trunkdebug ${1:port} ${2:port}"
-			],
-			"description": " Use this command to debug a trunk link failure."
-		}
-		"Different Boot Option": {
-			"prefix": ["boot"],
-			"body": [
-				"${1|fastboot,reboot,haReboot,sysShutdown|}"
-			],
-			"description": " Different Boot Option:\n fastboot Reboots the Control Processor\n reboot Reboots the control processor (CP)\n haReboot Performs high availability (HA) reboot\n sysShutdown Provides a graceful shutdown to protect the switch file systems."
-		}
-		"Configures fabric name": {
-			"prefix": ["fabricname"],
-			"body": [
-				"fabricname --set ${1:fabricname}"
-			],
-			"description": " Use this command to display the name of the fabric\n Optional: fabricname --show"
-		}
-		"Motto of the Day": {
-			"prefix": ["motd"],
-			"body": [
-				"motd --${1|set,show|} ${2:\"Message\"}"
-			],
-			"description": " Use this command to set the banner on the chassis\n The banner is a string of alphanumeric characters."
-		}
-		"Displays the banner text.": {
-			"prefix": ["bannershow"],
-			"body": [
-				"bannershow"
-			],
-			"description": "Displays the banner text."
-		}
-		"Displays the banner text.": {
-			"prefix": ["bannerset"],
-			"body": [
-				"bannerset ${1:\"Message\"}"
-			],
-			"description": "Displays the banner text."
-		}
-		"Helping by HW trouble": {
-			"prefix": ["sensorshow"],
-			"body": [
-				"sensorshow "
-			],
-			"description": "Displays sensor readings."
-		}
-		"Showing snapshot of switch health status": {
-			"prefix": ["sensorshow"],
-			"body": [
-				"mapsdb --show all"
-			],
-			"description": "Displays a summary and historical data of the errors for 5 rules and last 5 ports"
-		}
-		"Showing snapshot of switch health status": {
-			"prefix": ["sensorshow"],
+		"fos_setup_timezone": {
+			"prefix": ["fos_setup, tstimezone"],
 			"body": [
 				"tstimezone --${1:interactive}"
 			],
 			"description": "Displays or sets the system time zone.\n tstimezone Displays the current time zone.\n tstimezone --interactive Set the current timezone using the interactive mode"
 		}
+		"fos_setup_date": {
+			"prefix": ["fos_setup, date"],
+			"body": [
+				"date \"${1:MMDDhhmmYY}\""
+			],
+			"description": " Use the following procedure to set the device date and time.\n Example: date \"0821083524\"\n Result: AUG 21 08:35 UTC 2024\n MM is the month; valid values are 01 through 12.\n DD is the date; valid values are 01 through 31.\n hh is the hour; valid values are 00 through 23.\n mm is minutes; valid values are 00 through 59.\n YY is the year; valid values are 00 through 37 and 70 through 99 (year values from 70 through 99 are interpreted as 1970 through 1999; year values from 00 through 37 are interpreted as 2000 through 2037)."
+		}
+		"fos_setup_fabricname": {
+			"prefix": ["fos_setup, fabricname"],
+			"body": [
+				"fabricname --set ${1:fabricname}"
+			],
+			"description": " Set name of the fabric\n Optional: fabricname --show"
+		}
+		//passw area
+		"fos_setup_passwcfg_show": {
+			"prefix": ["fos_passwd, passwdcfg_show"],
+			"body": [
+				"passwdcfg --showall"
+			],
+			"description": " Display the current password configuration parameters\n There are some more parameters, but these are optional."
+		}
+		"fos_setup_passwcfg_setdefault": {
+			"prefix": ["fos_passwd, passwdcfg_setdefault"],
+			"body": [
+				"passwdcfg --setdefault"
+			],
+			"description": " Resets all password policies to their default values\n There are some more parameters, but these are optional."
+		}
+		"fos_setup_passwcfg_policies": {
+			"prefix": ["fos_passwd, passwdcfg"],
+			"body": [
+				"passwdcfg --set -uppercase ${1:ABC...} -lowercase ${2:abc...} -digits ${3:123...} -minlength ${4:PW_length} -history ${5:0-24} -maxpasswordage ${6:Indays} -warning ${7:0-999}"
+			],
+			"description": "Configures a specified password policy"
+		}
+		"fos_setup_passwcfg_policies": {
+			"prefix": ["fos_passwd, passwd"],
+			"body": [
+				"passwd ${1:username} -old ${2:password} -new ${3:password}"
+			],
+			"description": "To change the password for user from an admin account noninteractively"
+		}
+		//user area
+		"fos_user_add": {
+			"prefix": ["fos_user, userconfig_add"],
+			"body": [
+				"userconfig --add ${1:username} -l ${2:LF_ID_list(1-128)} -r ${3:role} -c ${4:chassis_role} -p ${5:password}"
+			],
+			"description": " Creates a new user account on a switch\n There are some more parameters, but these are optional."
+		}
+		"fos_user_change": {
+			"prefix": ["fos_user, userconfig_change"],
+			"body": [
+				"userconfig --change ${1:username} -p ${3:new_password}"
+			],
+			"description": " Change user password\n There are some more parameters, but these are optional."
+		}
+		"fos_user_show": {
+			"prefix": ["fos_user, userconfig_show"],
+			"body": [
+				"userconfig --show -a"
+			],
+			"description": " Displays information about all accounts\n There are some more parameters, but these are optional."
+		}
+		"fos_user_del": {
+			"prefix": ["fos_user, userconfig_del"],
+			"body": [
+				"userconfig --delete ${1:username}"
+			],
+			"description": " Deletes the specified account from the switch\n There are some more parameters, but these are optional."
+		}
+		"fos_user_role_del": {
+			"prefix": ["fos_user, roleConfig_del"],
+			"body": [
+				"roleConfig --delete ${1:role_name}"
+			],
+			"description": " Deletes the specified user-defined role\n There are some more parameters, but these are optional."
+		}
+		"fos_user_role_del": {
+			"prefix": ["fos_user, roleConfig_del"],
+			"body": [
+				"roleConfig --${1|add,change|} ${2:role_name} -d \"${3:description}\" -c ${4:class_list} -p ${5|OM,O,N|}"
+			],
+			"description": " Manages user-defined roles\n To create a role with Zoning and SecurityAdmnin permissions and OM access\n roleconfig --add myzonesec d \"Zone and Security Admin\" -c Security,zoning -p OM\n There are some more parameters, but these are optional."
+		}
+		//////////////////////////////	
+		//Virtual Fabrics area
+		//////////////////////////////	
+		"fos_virtual_show": {
+			"prefix": ["fos_virtual, fosconfig_show"],
+			"body": [
+				"fosconfig --show"
+			],
+			"description": "Displays the current operating status of features on the switch"
+		}	
+		"fos_virtual_enable_disable": {
+			"prefix": ["fos_virtual, fosconfig"],
+			"body": [
+				"fosconfig --${1|enable,disable|} vf"
+			],
+			"description": "Enable or disable a Virtual Fabrics Mode"
+		}
+		"fos_virtual_lscfg": {
+			"prefix": ["fos_virtual, lscfg"],
+			"body": [
+				"lscfg --${1|create,delete|} ${2:new_FID}"
+			],
+			"description": " Create or delete a logical switch instance\n There are some more parameters, but these are optional."
+		}
+		"fos_virtual_lscfg": {
+			"prefix": ["fos_virtual, lscfg_cfg"],
+			"body": [
+				"lscfg --config ${1:FID} -port ${2:port/portrange}"
+			],
+			"description": " Assign ports to a logical switch\n There are some more parameters, but these are optional."
+		}
+		"fos_virtual_show": {
+			"prefix": ["fos_virtual, lscfg_show"],
+			"body": [
+				"lscfg --show -n"
+			],
+			"description": " Displays the partition configuration on a switch or chassis, -n is optional\n There are some more parameters, but these are optional. "
+		}
+		"fos_virtual_setcontext": {
+			"prefix": ["fos_virtual, setcontext"],
+			"body": [
+				"setcontext ${1:FID_or_swName}"
+			],
+			"description": " Jump into a logical switch context by a specified FID\n There are some more parameters, but these are optional."
+		}
 		//
+		//////////////////////////////	
+		//firmware area
+		//////////////////////////////		
+		"fos_firmware_downloads": {
+			"prefix": ["fos_firmware, firmwaredownload"],
+			"body": [
+				"firmwaredownload -p ${1|scp,sftp,ftp,http|} ${2:host(ip),${3:user},${4:path},${5:password}"
+			],
+			"description": "Download switch firmware from an FTP or SSH server or local NFS directory to nonvolatile storage"
+		}
+		"fos_firmware_clean_inst": {
+			"prefix": ["fos_firmware, firmwarecleaninstall"],
+			"body": [
+				"firmwarecleaninstall -p ${1|scp,sftp,ftp|} ${2:host(ip),${3:user},${4:path},${5:password}"
+			],
+			"description": " Initiate a clean reinstall of the firmware.\n Use of this command results in resetting the system to default configuration."
+		}
+		"fos_firmware_activate": {
+			"prefix": ["fos_firmware, firmwareactivate"],
+			"body": [
+				"firmwareactivate"
+			],
+			"description": "Activates switch firmware that has been downloaded to the secondary partition using the firmwareDownload -r command"
+		}
+		"fos_firmware_commits": {
+			"prefix": ["fos_firmware, firmwarecommit"],
+			"body": [
+				"firmwarecommit"
+			],
+			"description": "Commits switch firmware"
+		}
+		"fos_firmware_restores": {
+			"prefix": ["fos_firmware, firmwarerestore"],
+			"body": [
+				"firmwarerestore"
+			],
+			"description": "Restore the former active Fabric OS firmware image"
+		}
+		"fos_firmware_status_download.": {
+			"prefix": ["fos_firmware, firmwaredownloadstatus"],
+			"body": [
+				"firmwaredownloadstatus"
+			],
+			"description": "Display the status of a firmware download on a switch"
+		}
+		"fos_firmware_show_history.": {
+			"prefix": ["fos_firmware, firmwareshow"],
+			"body": [
+				"firmwareshow --history"
+			],
+			"description": "Display the firmware versions and the firmware download history."
+		}
+		"fos_firmware_version.": {
+			"prefix": ["fos_firmware, version"],
+			"body": [
+				"version"
+			],
+			"description": "Displays firmware version information."
+		}
+		"fos_firmware_sync.": {
+			"prefix": ["fos_firmware, firmwaresync"],
+			"body": [
+				"firmwaresync"
+			],
+			"description": "Synchronizes the firmware from the active control processor (CP) to the standby CP"
+		}
+		//////////////////////////////	
+		//support area
+		//////////////////////////////
+		"fos_support_save": {
+			"prefix": ["fos_support, supportsave"],
+			"body": [
+				"supportsave -h ${1:host_ip} -d ${2:remote_dir} -l ${3|scp,sftp,ftp|} -u ${4:user_name} -p ${5:password}"
+			],
+			"description": "To save RASLOG, TRACE, supportShow, and other support information to an server"
+		}
+		"fos_support_save_USB": {
+			"prefix": ["fos_support, supportsaveUSB"],
+			"body": [
+				"supportsave -U -d ${1:remote_dir}"
+			],
+			"description": "To collect support information on a switch and save it to an attached USB device"
+		}
+		"fos_support_show": {
+			"prefix": ["fos_support, supportshow"],
+			"body": [
+				"supportshow"
+			],
+			"description": "Displays switch information for debugging purposes\n There are some more parameters, but these are optional."
+		}
+		"fos_support_cfgshow": {
+			"prefix": ["fos_support, supportshowcfgshow"],
+			"body": [
+				"supportshowcfgshow"
+			],
+			"description": "Displays the groups of commands enabled for display by the supportShow command."
+		}
+		"fos_support_link": {
+			"prefix": ["fos_support, supportlink"],
+			"body": [
+				"supportlink --show"
+			],
+			"description": "Displays the BSL configuration information"
+		}
+		"fos_support_infoclear": {
+			"prefix": ["fos_support, supportinfoclear"],
+			"body": [
+				"supportinfoclear --clear"
+			],
+			"description": "Displays the BSL configuration information"
+		}
+		//////////////////////////////	
+		//port area
+		//////////////////////////////
+		"fos_port_addr": {
+			"prefix": ["fos_port, portAddress"],
+			"body": [
+				"portAddress --show"
+			],
+			"description": " Assigns the lower 16 bits of the Fibre Channel port ID.\n There are some more parameters, but these are optional."
+		}
+		"fos_port_beacon": {
+			"prefix": ["fos_port, portBeacon"],
+			"body": [
+				"portBeacon --show -all"
+			],
+			"description": " Show port beaconing mode.\n There are some more parameters, but these are optional."
+		}
+		"fos_port_buffer": {
+			"prefix": ["fos_port, portbuffershow"],
+			"body": [
+				"portbuffershow ${1:port}"
+			],
+			"description": " Displays the buffer usage information for a port group or for all port groups in the switch\n There are some more parameters, but these are optional."
+		}
+		"fos_port_buffercalc": {
+			"prefix": ["fos_port, portbuffercalc"],
+			"body": [
+				"portbuffercalc ${1:port} -distance ${2:in_km} -speed ${3|4,8,16,32|} -framesize ${4:framesize_in_bytes}"
+			],
+			"description": " Calculate how many buffers are required for a given distance, speed, and framesize\n Example: portbuffercalc 4	-distance 100 -speed 8 -framesize 512"
+		}
+		"fos_port_Enable": {
+			"prefix": ["fos_port, portenable"],
+			"body": [
+				"portenable ${1:port}"
+			],
+			"description": " Enable a port or a range of ports.\n There are some more parameters, but these are optional."
+		}
+		"fos_port_Disable": {
+			"prefix": ["fos_port, portDisable"],
+			"body": [
+				"portdisable ${1:port}"
+			],
+			"description": " Disables a port or a range of ports.\n There are some more parameters, but these are optional."
+		}
+		"fos_port_Impair": {
+			"prefix": ["fos_port, portImpair"],
+			"body": [
+				"portImpair --clear ${1:port}"
+			],
+			"description": " Clears the impaired flag of a port and sends a request to the attached switch to clear the impaired flag on both sides of the link."
+		}
+		"fos_port_LoopbackTest": {
+			"prefix": ["fos_port, portLoopbackTest"],
+			"body": [
+				"portLoopbackTest"
+			],
+			"description": "  run a functional test in default mode\n There are some more parameters, but these are optional."
+		}
+		"fos_port_names": {
+			"prefix": ["fos_port, portname"],
+			"body": [
+				"portname ${1:Port} -n \"${2:portname}\""
+			],
+			"description": "Assign a name to a specified port."
+		}
+		"fos_port_StatsClear": {
+			"prefix": ["fos_port, portStatsClear"],
+			"body": [
+				"portStatsClear ${1:Port}"
+			],
+			"description": "Clears port hardware statistics"
+		}
+		"fos_port_Test": {
+			"prefix": ["fos_port, portTest"],
+			"body": [
+				"portTest -listtype -1"
+			],
+			"description": "Select all ports on which to run portTest.\n There are some more parameters, but these are optional."
+		}
+		"fos_port_stopTest": {
+			"prefix": ["fos_port, stopPortTest"],
+			"body": [
+				"stopPortTest"
+			],
+			"description": "Terminates the running portTest.\n There are some more parameters, but these are optional."
+		}
+		"fos_port_PeerBeacon": {
+			"prefix": ["fos_port, portPeerBeacon"],
+			"body": [
+				"portPeerBeacon --${1|enable,disable|} ${2:port}"
+			],
+			"description": "Sets the port peer beaconing to physically identify the interconnections between ports.\n There are some more parameters, but these are optional."
+		}
+		//portshow
+		"fos_port_Show": {
+			"prefix": ["fos_port_show, portShow"],
+			"body": [
+				"portShow ${1:port}"
+			],
+			"description": " Displays status and configuration parameters for ports and GbE ports\n There are some more parameters, but these are optional."
+		}
+		"fos_port_StatsShow": {
+			"prefix": ["fos_port_show, portStatsShow"],
+			"body": [
+				"portStatsShow ${1:port}"
+			],
+			"description": " Displays port hardware statistics\n There are some more parameters, but these are optional."
+		}
+		"fos_port_TestShow": {
+			"prefix": ["fos_port_show, portTestShow"],
+			"body": [
+				"portTestShow"
+			],
+			"description": " Displays information from portTest\n Examole: porttestshow -ports <port> | Displays test results for the specified ports\n There are some more parameters, but these are optional."
+		}
+		"fos_port_zoneshow": {
+			"prefix": ["fos_port_show, portzoneshow"],
+			"body": [
+				"portzoneshow"
+			],
+			"description": " Displays the enforced zone type of the F_Ports and FL_Ports of a switch"
+		}
+		"fos_port_TrunkArea": {
+			"prefix": ["fos_port_show, portTrunkArea"],
+			"body": [
+				"portTrunkArea --show ${1|disabled,enabled,trunk,all|}"
+			],
+			"description": " Displays configuration details for all ports on a switch\n There are some more parameters, but these are optional."
+		}
+		"fos_port_ErrShow": {
+			"prefix": ["fos_port_show, portErrShow"],
+			"body": [
+				"portErrShow"
+			],
+			"description": " Displays a port error summary\n There are some more parameters, but these are optional."
+		}
+		"fos_port_FlagsShow": {
+			"prefix": ["fos_port_show, portFlagsShow"],
+			"body": [
+				"portFlagsShow"
+			],
+			"description": " Displays the port status bitmaps for all ports in a switch.\n There are some more parameters, but these are optional."
+		}
+		"fos_port_EncCompShow": {
+			"prefix": ["fos_port_show, portEncCompShow"],
+			"body": [
+				"portEncCompShow"
+			],
+			"description": " Displays encryption and compression port configuration details"
+		}
+		"fos_port_ChannelShow": {
+			"prefix": ["fos_port_show, portChannelShow"],
+			"body": [
+				"portChannelShow"
+			],
+			"description": " Displays the port log with page breaks.\nThere are some more parameters, but these are optional."
+		}
+		"fos_port_logShow": {
+			"prefix": ["fos_port_show, portlogshow"],
+			"body": [
+				"portlogshow"
+			],
+			"description": " To display port channels for all reachable domains\n Example: portlogshow 24 | To view the port log for a port\n There are some more parameters, but these are optional."
+		}
+		"fos_port_LogShowPort": {
+			"prefix": ["fos_port_show, portLogShowPort"],
+			"body": [
+				"portLogShowPort ${1:port}"
+			],
+			"description": " Displays the port log of a specified port with page breaks\n There are some more parameters, but these are optional."
+		}
+		"fos_port_logcfgShow": {
+			"prefix": ["fos_port_show, portlogconfigshow"],
+			"body": [
+				"portlogconfigshow"
+			],
+			"description": " Displays the current port log configuration."
+		}
+		"fos_port_LogEventShow": {
+			"prefix": ["fos_port_show, portLogEventShow"],
+			"body": [
+				"portLogEventShow"
+			],
+			"description": "Displays information about port log events."
+		}
+		"fos_port_peerbeaconShow": {
+			"prefix": ["fos_port_show, portpeerbeacon"],
+			"body": [
+				"portpeerbeacon --show -all"
+			],
+			"description": "Displays the status of the port peer beacon on a chassis"
+		}
+		"fos_port_PerfShow": {
+			"prefix": ["fos_port_show, portPerfShow"],
+			"body": [
+				"portPerfShow ${1:port_portrange} -t ${2:time_in_sec}"
+			],
+			"description": " Display port performance on a chassis for range of ports with time interval\n There are some more parameters, but these are optional."
+		}
+		"fos_port_LoginShow": {
+			"prefix": ["fos_port_show, portLoginShow"],
+			"body": [
+				"portLoginShow"
+			],
+			"description": " Displays port login status of devices attached to the specified port and the details of the last logged out device.\n Example: portloginshow 23 | To display the logins received by Port 23\n There are some more parameters, but these are optional."
+		}
+		//portlog
+		"fos_port_log_clear": {
+			"prefix": ["fos_port_log, portLogClear"],
+			"body": [
+				"portLogClear --clear"
+			],
+			"description": "Clears the port log."
+		}
+		"fos_port_log_Enable": {
+			"prefix": ["fos_port_log, portLogEnable"],
+			"body": [
+				"portLogEnable"
+			],
+			"description": "Enable the port log facility"
+		}
+		"fos_port_log_typeEnable": {
+			"prefix": ["fos_port_log, portLogTypeEnable"],
+			"body": [
+				"portLogTypeEnable"
+			],
+			"description": "Enable the port log of a specified type"
+		}
+		"fos_port_log_disable": {
+			"prefix": ["fos_port_log, portLogDisable"],
+			"body": [
+				"portLogDisable"
+			],
+			"description": "Disables the port log facility"
+		}
+		"fos_port_log_typedisable": {
+			"prefix": ["fos_port_log, portLogTypeDisable"],
+			"body": [
+				"portLogTypeDisable"
+			],
+			"description": "Disables the port log of a specified type"
+		}
+		"fos_port_log_Reset": {
+			"prefix": ["fos_port_log, portLogReset"],
+			"body": [
+				"portLogReset"
+			],
+			"description": "Enable the port log facility"
+		}
+		"fos_port_log_dump": {
+			"prefix": ["fos_port_log, portLogDump"],
+			"body": [
+				"portLogDump"
+			],
+			"description": " Displays the port log without page breaks\n Example: portLogDump 24 | To display 10 lines of the portlog"
+		}
+		"fos_port_log_dumpport": {
+			"prefix": ["fos_port_log, portLogDumpPort"],
+			"body": [
+				"portLogDumpPort"
+			],
+			"description": " Displays the port log of a specified port without page breaks\n Example: portLogDumpPort 24 | To display the port log dump for a port"
+		}
+		"fos_port_log_Resize": {
+			"prefix": ["fos_port_log, portLogResize"],
+			"body": [
+				"portLogResize ${1:num_entries}"
+			],
+			"description": "Resizes the port log to include a specified number of entries.\n <num_entries> Specifies the number of port log entries. The valid range of values is 16,384 through 32,768"
+		}
+		//port_cfg
+		"fos_port_cfgcompression": {
+			"prefix": ["fos_port_cfg ,portcfgcompress"],
+			"body": [
+				"portdisable ${1:port}",
+				"portcfgcompress --${1|enable,disable|} ${2:port}",
+				"portenable ${1:port}"
+			],
+			"description": "Enable in-flight compression to provide better bandwidth use on the ISLs, especially over long distance"
+		}
+		"fos_port_credit_recovery": {
+			"prefix": ["fos_port_cfg, portcfgcreditrecovery"],
+			"body": [
+				"portcfgcreditrecovery --${1|enable,disable,help|} ${2:port}"
+			],
+			"description": " Enable or disable credit recovery on a port\n There are some more parameters, but these are optional"
+		}
+		"fos_port_CfgDefault": {
+			"prefix": ["fos_port_cfg, portCfgDefault"],
+			"body": [
+				"portCfgDefault ${1:port}"
+			],
+			"description": " Specifies the number of the port to be reset, relative to its slot for bladed systems. Use switchShow to list of valid ports.\n There are some more parameters, but these are optional"
+		}
+		"fos_port_CfgDPort": {
+			"prefix": ["fos_port_cfg ,portCfgDPort"],
+			"body": [
+				"portdisable ${1:port}",
+				"portCfgDPort --${1|enable,disable|} ${2:port}",
+				"portenable ${1:port}"
+			],
+			"description": " Configures the specified port(s) as D_Port.\n You cannot configure the port as a D_Port while Dynamic D_Port tests are in progress on the port.\n The operation fails with an error message."
+		}
+		"fos_port_CfgEncrypt": {
+			"prefix": ["fos_port_cfg ,portCfgEncrypt"],
+			"body": [
+				"portCfgEncrypt --${1|enable,disable|} ${2:port}",
+			],
+			"description": " Configure a port for encryption.\n This command enables or disables the encryption configuration on the specified slot/port and saves the configuration persistently.\n There are some more parameters, but these are optional"
+		}
+		"fos_port_cfgeportcredits": {
+			"prefix": ["fos_port_cfg, portcfgeportcredits"],
+			"body": [
+				"portcfgeportcredits --${1|enable,disable,show|} ${2:port} ${3:credits_in_use_only_with_enable}"
+			],
+			"description": " Change the default credit allocation for a normal distance E_Port or EX_Port by allocating the specified number of credits to the port.\n Example: portcfgeportcredits --enable 6 10"
+		}
+		"fos_port_CfgFaultDelay": {
+			"prefix": ["fos_port_cfg ,portCfgFaultDelay"],
+			"body": [
+				"portCfgFaultDelay ${1:port} ${2|0,1|} ",
+			],
+			"description": " Configure the fault delay of an FC port\n 0 Sets the fault delay to R_A_TOV (default). \n 1 Sets the fault delay to 1.2 seconds."
+		}
+		"fos_port_CfgISLMode": {
+			"prefix": ["fos_port_cfg ,portCfgISLMode"],
+			"body": [
+				"portCfgISLMode ${1:port} ${2|0,1|} ",
+			],
+			"description": " Enables or disables ISL R_RDY mode on a port.\n Specify 1 to enable ISL R_RDY mode. Specify 0 to disable ISL R_RDY mode."
+		}
+		"fos_port_CfgFportBuffers": {
+			"prefix": ["fos_port_cfg, portCfgFportBuffers"],
+			"body": [
+				"portCfgFportBuffers --${1|enable,disable|} ${2:port} ${3:buffers_in_use_with_enable}"
+			],
+			"description": " Change the default buffer allocation for an F_Port and to allocate a specified number of buffers to the port.\n Example: portcfgfportbuffers --enable 2 12"
+		}
+		"fos_port_cfglongdistance": {
+			"prefix": ["fos_port_cfg, portcfglongdistance"],
+			"body": [
+				"portcfglongdistance ${1:port} ${2|L0,LE,LD,LS|} 1 -distance ${3:distance_km} -framesize ${4:frame_size}"
+			],
+			"description": " Allocate frame buffer credits to a port or to configure a specified long distance link.\n Example: portcfglongdistance 0 LS 1 -distance 100 -framesize 1024\n The port can only be used as an E_Port."
+		}
+		"fos_port_CfgNPIVPort": {
+			"prefix": ["fos_port_cfg ,portCfgNPIVPort"],
+			"body": [
+				"portCfgNPIVPort --${1|enable,disable|} ${2:port}",
+			],
+			"description": " Enables or disables N_Port ID virtualization (NPIV) functionality on a port\n There are some more parameters, but these are optional"
+		}
+		"fos_port_CfgNPIVPort": {
+			"prefix": ["fos_port_cfg ,portCfgNPort"],
+			"body": [
+				"portCfgNPort ${1:port} ${2|0,1|}",
+			],
+			"description": " Enables (1) or disables (0) N_Port functionality for an Access Gateway port.\n There are some more parameters, but these are optional"
+		}
+		"fos_port_CfgPersistence": {
+			"prefix": ["fos_port_cfg ,portCfgPersistence"],
+			"body": [
+				"portCfgPersistence --set ${1|pe,pd|} ${2:port_portrange}",
+			],
+			"description": " Sets or removes the persistent disable flag on a port or a range of ports.\n pe = enable | pd = disable\n There are some more parameters, but these are optional"
+		}
+		"fos_port_CfgPersistenceDisable": {
+			"prefix": ["fos_port_cfg ,portCfgPersistentDisable"],
+			"body": [
+				"portCfgPersistentDisable ${1:port_portrange}",
+			],
+			"description": " Persistently disables a port or a range of ports\n There are some more parameters, but these are optional"
+		}
+		"fos_port_CfgPersistenceEnable": {
+			"prefix": ["fos_port_cfg ,portCfgPersistentEnable"],
+			"body": [
+				"portCfgPersistentEnable ${1:port_portrange}",
+			],
+			"description": " Persistently enable a port or a range of ports\n There are some more parameters, but these are optional"
+		}
+		"fos_port_CfgQoS": {
+			"prefix": ["fos_port_cfg ,portCfgQoS"],
+			"body": [
+				"portCfgQoS --${1|enable,disable,default|} ${2:port}",
+			],
+			"description": " Enables or disables QoS and sets the default configuration.\n There are some more parameters, but these are optional"
+		}
+		"fos_port_cfgshow": {
+			"prefix": ["fos_port_cfg, portcfgshow"],
+			"body": [
+				"portcfgshow ${1:port}"
+			],
+			"description": "Display the port configuration settings for a single port"
+		}
+		"fos_port_cfgspeed": {
+			"prefix": ["fos_port_cfg, portcfgSpeed"],
+			"body": [
+				"portcfgSpeed ${1:port} ${2:speed}"
+			],
+			"description": " Setting Port Speed. Example: portcfgSpeed 0 16\n 0 -> Autosensing mode (hardware). The port automatically configures for maximum speed.\n 8 -> The port is set at a fixed speed of 8G.\n 16 -> The port is set at a fixed speed of 16G (not supported on 8G platforms)\n 32 -> The port is set at a fixed speed of 32G (not supported on 8G and 16G platforms)\n 64 -> The port is set at a fixed speed of 64G. (supported only on the port blades and pizza boxes of the Brocade Gen 7 platform)"
+		}	
+		"fos_port_CfgTdz": {
+			"prefix": ["fos_port_cfg, portCfgTdz"],
+			"body": [
+				"portCfgTdz --${1|enable,disable,show|} ${2:port}",
+			],
+			"description": " Configures a port for Target Driven Zoning (TDZ).\n There are some more parameters, but these are optional"
+		}
+		"fos_port_cfgTrunk": {
+			"prefix": ["fos_port_cfg, portcfgtrunkport"],
+			"body": [
+				"portcfgtrunkport ${1:port} ${2|0,1|}" 
+			],
+			"description": " Specify 1 to enable trunking on the specified port.\n Specify 0 to disable trunking on the port.\n This operand is required."
+		}
+		"fos_port_CfgUpload": {
+			"prefix": ["fos_port_cfg, portCfgUpload"],
+			"body": [
+				"portCfgUpload"
+			],
+			"description": " Saves a backup of an existing port configuration in a CLI format\n There are some more parameters, but these are optional"
+		}
+		//switch cfg
+		"fos_switch_cfgPersistentDisable": {
+			"prefix": ["fos_switch_cfg, switchCfgPersistentDisable"],
+			"body": [
+				"switchCfgPersistentDisable"
+			],
+			"description": " Disables a switch persistently.\n There are some more parameters, but these are optional"
+		}
+		"fos_switch_cfgPersistentEnable": {
+			"prefix": ["fos_switch_cfg, switchCfgPersistentEnable"],
+			"body": [
+				"switchCfgPersistentEnable"
+			],
+			"description": " Enable a switch persistently."
+		}
+		"fos_switch_cfgspeed": {
+			"prefix": ["fos_switch_cfg, switchcfgspeed"],
+			"body": [
+				"switchcfgspeed ${1:speed}"
+			],
+			"description": " Example: switchcfgspeed 32 (All Ports are set at a fixed speed of 32Gb/s)\n 0 -> Autosensing mode. The port automatically configures for the highest speed.\n 1 -> The port is set at a fixed speed of 1Gb/s (not supported on Brocade Gen 6 platforms).\n 2 -> The port is set at a fixed speed of 2Gb/s (not supported on Brocade Gen 6 platforms).\n 4 -> The port is set at a fixed speed of 4Gb/s.\n 8 -> The port is set at a fixed speed of 8Gb/s.\n 16 -> The port is set at a fixed speed of 16Gb/s (not supported on 8G platforms).\n 32 -> The port is set at a fixed speed of 32Gb/s (not supported on 8G platforms)."
+		}
+		"fos_switch_Cfgtrunk": {
+			"prefix": ["fos_switch_cfg, switchcfgtrunk"],
+			"body": [
+				"switchcfgtrunk ${1|0,1|}" 
+			],
+			"description": " Enables or disables trunking on all the ports of a switch\n Specify 1 to enable trunking on all ports. Specify 0 to disable trunking on all ports.\n This operand is required."
+		}
+		"fos_switch_Decommission": {
+			"prefix": ["fos_switch_cfg, switchDecommission"],
+			"body": [
+				"switchDecommission" 
+			],
+			"description": " Important, before using the command read description\n Writes zeros to the memory of the compact flash, resets customer-specific IP data in the SEEPROM, and resets the FRU to remove sensitive data.\n The device is not operational after the command is executed and it can be returned to the service provider."
+		}
+		//fos switch area
+		"fos_switch_Disable": {
+			"prefix": ["fos_switch, switchDisable"],
+			"body": [
+				"switchDisable"
+			],
+			"description": " Disable all user ports on a switch.."
+		}
+		"fos_switch_Enable": {
+			"prefix": ["fos_switch, switchEnable"],
+			"body": [
+				"switchEnable"
+			],
+			"description": " Enables all user ports on a switch."
+		}
+		"fos_switch_Type": {
+			"prefix": ["fos_switch, switchType"],
+			"body": [
+				"switchType"
+			],
+			"description": "Displays the product name of a chassis or a switch."
+		}
+		"fos_switch_Boot_Option": {
+			"prefix": ["fos_switch, bootoption"],
+			"body": [
+				"${1|fastboot,reboot,haReboot,sysShutdown|}"
+			],
+			"description": " Different Boot Option:\n fastboot Reboots the Control Processor\n reboot Reboots the control processor (CP)\n haReboot Performs high availability (HA) reboot\n sysShutdown Provides a graceful shutdown to protect the switch file systems."
+		}
+		"fos_switch_show": {
+			"prefix": ["fos_switch, switchshow"],
+			"body": [
+				"switchshow"
+			],
+			"description": " Display switch, blade, and port status information\n (Optional)\n -portcount To display the port count\n -perf To display TX and RX performance in a single column"
+		}	
+		//slot commands
+		"fos_slot_cfgPersistence_show": {
+			"prefix": ["fos_slot, slotCfgPersistence_show"],
+			"body": [
+				"slotCfgPersistence" 
+			],
+			"description": " Displays all the persistently disabled slots in the chassis."
+		}
+		"fos_slot_cfgPersistence": {
+			"prefix": ["fos_slot, slotCfgPersistence"],
+			"body": [
+				"slotCfgPersistence ${1|--poweroff,--poweron|} ${1:slot_number}" 
+			],
+			"description": " Sets or removes the persistent disable flag on a slot in the chassis."
+		}
+		"fos_slot_Power": {
+			"prefix": ["fos_slot, slotPoweron, slotPoweroff"],
+			"body": [
+				"${1|slotPowerOff,slotPowerOn|} ${1:slot_number}"
+			],
+			"description": "Restores power to a slot"
+		}
+		"fos_slot_statsclear": {
+			"prefix": ["fos_slot, slotstatsclear"],
+			"body": [
+				"slotstatsclear"
+			],
+			"description": "Displays the status of all slots in the system"
+		}
+		"fos_slot_Show": {
+			"prefix": ["fos_slot, slotShow"],
+			"body": [
+				"slotShow"
+			],
+			"description": "Displays the status of all slots in the system"
+		}
+		//sec commands
+		"fos_sec_policy_Abort": {
+			"prefix": ["fos_sec_policy, secPolicyAbort"],
+			"body": [
+				"secPolicyAbort"
+			],
+			"description": "Aborts all unsaved changes to the defined database."
+		}
+		"fos_sec_Policy_Activate": {
+			"prefix": ["fos_sec_policy, secPolicyActivate"],
+			"body": [
+				"secPolicyActivate"
+			],
+			"description": "Saves and activates the Defined Security Policy Set."
+		}
+		"fos_sec_Policy_Activate": {
+			"prefix": ["fos_sec_policy, secPolicyDelete"],
+			"body": [
+				"secPolicyDelete ${1:name}"
+			],
+			"description": "Deletes an existing security policy."
+		}
+		"fos_sec_Policy_Save": {
+			"prefix": ["fos_sec_policy, secPolicySave"],
+			"body": [
+				"secPolicySave"
+			],
+			"description": "Saves a defined security policy to persistent memory."
+		}
+		"fos_sec_Policy_Show": {
+			"prefix": ["fos_sec_policy, secPolicyShow"],
+			"body": [
+				"secPolicyShow ${1|\"Active\",\"Defined\",*|}"
+			],
+			"description": "Shows which policy to display, in quotation marks. Valid values are \"Active\", \"Defined\", or an asterisk (*) for both Active and Defined"
+		}
+		"fos_sec_Policy_Dump": {
+			"prefix": ["fos_sec_policy, secPolicyDump"],
+			"body": [
+				"secPolicyDump"
+			],
+			"description": "Displays the members of one or all existing security policies."
+		}
+		"fos_sec_StatsReset": {
+			"prefix": ["fos_sec_policy, secStatsReset"],
+			"body": [
+				"secStatsReset"
+			],
+			"description": "Resets one or all security statistics to 0"
+		}
+		"fos_sec_StatsShow": {
+			"prefix": ["fos_sec_policy, secStatsShow"],
+			"body": [
+				"secStatsShow"
+			],
+			"description": "Displays one or all security statistics."
+		}
+		//switch info
+		"fos_switch_info_ps": {
+			"prefix": ["fos_switch_info, psShow"],
+			"body": [
+				"psShow -v"
+			],
+			"description": "Displays power supply status and shows the current firmware version of the power supplies"
+		}
+		"fos_switch_info_tempShow": {
+			"prefix": ["fos_switch_info, tempShow"],
+			"body": [
+				"tempShow "
+			],
+			"description": "Displays temperature readings."
+		}
+		"fos_switch_info_sensorshow": {
+			"prefix": ["fos_switch_info, sensorshow"],
+			"body": [
+				"sensorshow"
+			],
+			"description": "Displays sensor readings."
+		}
+		"fos_switch_info_sfpShow": {
+			"prefix": ["fos_switch_info, sfpShow"],
+			"body": [
+				"sfpShow"
+			],
+			"description": "Displays basic SFP transceiver information"
+		}
+		"fos_switch_info_sfpShow_m": {
+			"prefix": ["fos_switch_info, sfpShow_more"],
+			"body": [
+				"sfpShow -${1|all,health|}"
+			],
+			"description": "Displays detailed data for all available SFPs on the switch\n Displays SFP health status information from MAPS for 32 and 64G SFPs and for 32 and 53G QSFPs (Quad SFPs)."
+		}
+		"fos_switch_info_trunk": {
+			"prefix": ["fos_switch_info, trunkshow"],
+			"body": [
+				"trunkshow -${1|perf,slotport,swname|}"
+			],
+			"description": " Display trunking information of E_Ports, F_Ports, and EX_Ports\n (optional)\n -perf for bandwidth, throughput, and percentage of link utilization\n -swname bandwidth, throughput, and percentage of link utilization\n -slotport neighbor port detail in slot/port format"
+		}
+		"fos_switch_info_isl": {
+			"prefix": ["fos_switch_info, islshow"],
+			"body": [
+				"islshow -${1:slotport}"
+			],
+			"description": " Use this command to display the current connections and status of the interswitch link (ISL) for each port on a switch.\n (optional)\n -slotport display neighbor details"
+		}
+		"fos_switch_info_topology": {
+			"prefix": ["fos_switch_info, topologyshow"],
+			"body": [
+				"topologyshow"
+			],
+			"description": " Displays the unicast fabric topology\n To display the errors for the topology: topologyshow --errors\n To display the topology with index numbers: topologyshow -index"
+		}	
+		"fos_switch_info_trunkdebug": {
+			"prefix": ["fos_switch_info, trunkdebug"],
+			"body": [
+				"trunkdebug ${1:port} ${2:port}"
+			],
+			"description": " Debug a trunk link failure."
+		}
+		"fos_switch_info_mapsdb": {
+			"prefix": ["fos_switch_info, mapsdb"],
+			"body": [
+				"mapsdb --show all"
+			],
+			"description": "Displays a summary and historical data of the errors for 5 rules and last 5 ports"
+		}
+		"fos_switch_info_wwn": {
+			"prefix": ["fos_switch_info, wwn"],
+			"body": [
+				"wwn"
+			],
+			"description": "Displays the world wide name (WWN) and factory serial number of the switch or chassis."
+		}
+		//////////////////////////////	
+		//ntk comands area
+		//////////////////////////////
+		"fos_info_sboot": {
+			"prefix": ["fos_info, sboot"],
+			"body": [
+				"sboot --show"
+			],
+			"description": "Displays FOS Secure Boot (FosSB) information."
+		}
+		"fos_info_routeHelp": {
+			"prefix": ["fos_info, routeHelp"],
+			"body": [
+				"routeHelp"
+			],
+			"description": "Displays a list of FSPF-related commands."
+		}
+		"fos_info_statsClear": {
+			"prefix": ["fos_info, statsClear"],
+			"body": [
+				"statsClear"
+			],
+			"description": "Clears port and diagnostic statistics."
+		}
+		"fos_info_clihistory": {
+			"prefix": ["fos_info, clihistory"],
+			"body": [
+				"clihistory"
+			],
+			"description": "Entering clihistory with no keywords displays the command line history for the currently logged-in user only."
+		}
+		"fos_info_fosexec": {
+			"prefix": ["fos_info, fosexec"],
+			"body": [
+				"# Example: fosexec --fid 10 -cmd \"switchshow\""
+				"# Example: fosexec --fid all -cmd \"switchshow\"\n"
+				"fosexec --fid ${1:FID_or_all} -cmd \"${2:FOS_command}\""
+			],
+			"description": "Execute any Fabric OS command on a specified logical switch context."
+		}	
+		"fos_info_motd": {
+			"prefix": ["fos_info, motd"],
+			"body": [
+				"motd --${1|set,show|} ${2:\"Message\"}"
+			],
+			"description": " Banner on the chassis\n The banner is a string of alphanumeric characters."
+		}
+		"fos_info_banner": {
+			"prefix": ["fos_info, bannershow"],
+			"body": [
+				"bannershow"
+			],
+			"description": "Displays the banner text."
+		}
+		"fos_info_bannerset": {
+			"prefix": ["fos_info, bannerset"],
+			"body": [
+				"bannerset ${1:\"Message\"}"
+			],
+			"description": "Set the banner text on the local switch."
+		}
 		//////////////////////////////	
 		//Test area for helping hand
 		//////////////////////////////
-		"Setting up TruFOS": {
-			"prefix": ["trufos"],
+		"fos_usefull_thing_Setup_TruFOS": {
+			"prefix": ["fos_usefull_thing, trufos"],
 			"body": [
+				"$LINE_COMMENT I use the admin role for the sake of simplicity, but you can use any other user who has the appropriate permissions."
 				"$LINE_COMMENT Check if there is a TruFOS certificate loaded"
-				"license --show"
+				"ssh admin@${1:switch_ip} license --show"
 				"\n$LINE_COMMENT To get the certificate you need the switch license ID, run the command:"
 				"$LINE_COMMENT The ID could look like this example: 10:00:c5:f8:7c:44:1d:cd"
-				"license --show -lid"
+				"ssh admin@${1:switch_ip}license --show -lid"
 				"\n$LINE_COMMENT From the website support.broadcom.com, click LOGIN. Once logged on, click Hardware in the top navigation menu and select Brocade Storage Networking."
 				"$LINE_COMMENT Click TruFOS Certificate Request. The Trusted FOS Certificate Request page appears. Follow the instructions given on the Trusted FOS Certificate Request page to request Brocade TruFOS Certificates."
 				"$LINE_COMMENT Install the TruFOS certificate on the switch by running this commnad with your credentials"
-				"license --install -h ${1:host_ip} -t ${2:Protocol} -u ${3:user} -p ${4:password} -f ${5:filepath_to_xmlcertificatefile}"
+				"ssh admin@${1:switch_ip}license --install -h ${1:host_ip} -t ${2:Protocol} -u ${3:user} -p ${4:password} -f ${5:filepath_to_xmlcertificatefile}"
 				"\n$LINE_COMMENT Check if your TruFOS certificate is loaded"
-				"license --show"
+				"ssh admin@${1:switch_ip} license --show"
 			],
 			"description": " Setting up TruFOS\n For powershell user use this command:\n plink <username>@<ipaddress> -pw <password> -batch \"license --show\" "
 		}
 		"Setting up SAN-Switch": {
-			"prefix": ["switch_setup"],
+			"prefix": ["fos_usefull_thing, switch_setup"],
 			"body": [
+				"$LINE_COMMENT I use the admin role for the sake of simplicity, but you can use any other user who has the appropriate permissions."
 				"$LINE_COMMENT ATTENTION this is only a guide and may vary in various points depending on the complexity of the environment to be set up. "
 				"$LINE_COMMENT Connect to the switch via RJ45 and set the IP-Addr., The Default IP/Mask 10.77.77.77/24"
 				"$LINE_COMMENT If this is the first connection to the new switch, you will first be asked to change the users' passwords before you can assign a new IP."
-				"ipaddrset -ipv4 -add -ethip ${1:ipaddress} -ethmask ${2:mask_ip} -gwyip ${3:gateway_ip} -dhcp ${4|on,off|}"
+				"ssh admin@${1:switch_ip} ipaddrset -ipv4 -add -ethip ${1:ipaddress} -ethmask ${2:mask_ip} -gwyip ${3:gateway_ip} -dhcp ${4|on,off|}"
 				"\n$LINE_COMMENT If you want to create a fabric with multiple switches, you should adjust the Domain ID. A Domain ID may only occur once in a fabric!"
+				"$LINE_COMMENT For the next steps it is easier if you are on the cli of the Switch than in VS-Code."
 				"$LINE_COMMENT First Disable the Switch with"
 				"switchDisable"
 				"\n$LINE_COMMENT Next, enter the following command"
@@ -632,7 +1423,7 @@
 			"description": " This is an exemplary default basic procedure for a basic configuration of a new SAN-Switch."
 		}
 		"Setting up virtual Fabric": {
-			"prefix": ["virtualfabric_setup"],
+			"prefix": ["fos_usefull_thing, virtualfabric_setup"],
 			"body": [
 				"$LINE_COMMENT From Fabric OS v9.2.0, when VF is enabled and default admin account is disabled, the chassis admin roles are automatically assigned to all non-default accounts with admin roles."
 				"$LINE_COMMENT Connect to the physical chassis and log in using an account with the chassis-role permission, in \"classic way\" use the admin Account."

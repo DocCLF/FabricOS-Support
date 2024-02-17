@@ -2,7 +2,8 @@
   "name": "fabricos-support",
   "displayName": "FabricOS Support",
   "description": "FabricOS CLI Support",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "publisher": "ToolDoc",
   "preview": false,
   "engines": {
     "vscode": "^1.86.0"
