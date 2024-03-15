@@ -3,6 +3,8 @@
 FabricOS CLI Support contains what I consider to be the most important CLI commands for dealing with SAN-Switches. 
 I created the collection to make my life easier when creating scripts with [PowerShell][] for [Visual Studio Code][].
 I currently use [PowerShell][] Version 7.4.x for this purpose.
+The easiest and better way is to download the extensions directly in the VS code under Extensions, 
+as this is the quickest way to get the latest version without having to do anything.
 
 All commands you find here correspond to the commands you can find in the [Brocade FabricOS Command Reference Manual][]. 
 Not all options for all commands are available here, but the most common ones should be available.
@@ -11,9 +13,9 @@ If you miss something please contact me.
 ## Categorization List
 | Categorization            | Subcategory                          | Content                                                                    |
 | ------------------------- | ------------------------------------ | -------------------------------------------------------------------------- |
-| fos_usefull_thing         | trufos                               | One way to configure TruFOS (Basic)                                        |
-| fos_usefull_thing         | switch_setup                         | One way to configure a SAN switch (Basic) via CLI                          |
-| fos_usefull_thing         | virtualfabric_setup                  | One way to implement a virtual fabric                                      |
+|          --------         | trufos_setup                         | One way to configure TruFOS (Basic)                                        |
+|          --------         | switch_setup                         | One way to configure a SAN switch (Basic) via CLI                          |
+|          --------         | virtualfabric_setup                  | One way to implement a virtual fabric                                      |
 | ---------------------     | ------------------------------------ | -------------------------------------------------------------------------- |
 | fos_alias                 |                                      | Everything that has to do with aliases                                     |
 | fos_zone                  |                                      | Everything that has to do with zones                                       |
@@ -36,6 +38,7 @@ If you miss something please contact me.
 | fos_sec_policy            |                                      | Everything that has to do with Security Police                             |
 | fos_switch_info           |                                      | Everything that has to do with Switch Infos with some show commands        |
 | fos_info                  |                                      | This section includes commands that have not found a proper place          |
+
 ...more are still in the pipeline
 
 ## Requirements
