@@ -2,7 +2,7 @@
   "name": "fabricos-support",
   "displayName": "FabricOS Support",
   "description": "FabricOS CLI Support",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "publisher": "ToolDoc",
   "preview": false,
   "engines": {
